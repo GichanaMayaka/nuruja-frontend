@@ -7,21 +7,21 @@ import DataDisplay from "./DataDisplay";
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer({ columns, data }) {
+function ResponsiveDrawer({ columns, data, url }) {
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBarAndDrawer />
+    <Box sx={ { display: "flex" } }>
+      <CssBaseline/>
+      <AppBarAndDrawer/>
       <Box
         component="main"
-        sx={{
+        sx={ {
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
+          width: { sm: `calc(100% - ${ drawerWidth }px)` },
+        } }
       >
-        <Toolbar />
-        <DataDisplay columns={columns} data={data} />
+        <Toolbar/>
+        <DataDisplay columns={ columns } data={ data } url={url}/>
       </Box>
     </Box>
   );
