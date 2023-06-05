@@ -2,12 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { Books } from "./pages/Books";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {
-  books,
-  booksColumns,
-  members,
-  membersColumns,
-} from "./components/dataProvider";
+import { books, booksColumns, members, membersColumns, } from "./components/dataProvider";
 import { Members } from "./pages/Members";
 import { LandingPage } from "./pages/LandingPage";
 import { BooksEdit } from "./pages/BooksEdit";
@@ -41,7 +36,7 @@ function App() {
           />
           <Route
             path="/shelf"
-            element={ <Books columns={ booksColumns } data={ books } url={ "books" }/> }
+            element={ <Books columns={ booksColumns } data={ books } url={ "shelf" }/> }
           />
           <Route
             path="/books/:id"
@@ -52,8 +47,8 @@ function App() {
             element={ <BooksEdit columns={ membersColumns } data={ members } url={ "members" }/> }
           />
           <Route
-            path="/balances/:id"
-            element={ <BooksEdit columns={ membersColumns } data={ members } url={ "balances" }/> }
+            path="/shelf/:id"
+            element={ <BooksEdit columns={ booksColumns } data={ books } url={ "balances" }/> }
           />
         </Routes>
       </BrowserRouter>

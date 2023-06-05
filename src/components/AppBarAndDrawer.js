@@ -21,9 +21,9 @@ import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
 import { MenuItemsNuruja } from "./dataProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const drawerWidth = 360;
+const drawerWidth = 240;
 
 export const AppBarAndDrawer = (props) => {
   const { window } = props;
