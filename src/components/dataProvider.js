@@ -31,7 +31,6 @@ export const members = [
   createMembers(1, "gichana", "Ngong'", "gichana@email.com", "1041"),
   createMembers(2, "jusline", "mmong'", "jusline@email.com", "1051"),
   createMembers(3, "joy", "ndromm'", "joy@email.com", "1061"),
-  createMembers(4, "valeria", "penis land", "valeria@email.com", "1061"),
 ];
 
 export const booksColumns = [
