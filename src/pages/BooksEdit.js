@@ -5,9 +5,10 @@ import AddOrEditBookForm from "../components/AddOrEditBookForm";
 
 export const BooksEdit = ({ columns, data, url }) => {
   return (
-    <Container sx={ { alignContent: "center", marginTop: 3 } }>
-      <ResponsiveDrawer><AddOrEditBookForm/></ResponsiveDrawer>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
+      <ResponsiveDrawer>
+        <AddOrEditBookForm />
+      </ResponsiveDrawer>
     </Container>
-  )
-    ;
+  );
 };

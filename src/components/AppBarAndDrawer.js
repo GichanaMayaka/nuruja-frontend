@@ -58,7 +58,7 @@ export const AppBarAndDrawer = (props) => {
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${ theme.spacing(4) })`,
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("sm")]: {
@@ -76,31 +76,35 @@ export const AppBarAndDrawer = (props) => {
 
   const drawer = (
     <div>
-      <Toolbar/>
-      <Divider/>
+      <Toolbar />
+      <Divider />
       <List>
-        { MenuItemsNuruja.map((text, index) => (
-          <ListItem key={ text } disablePadding>
-            <ListItemButton component={ Link } to={ `/${ text.toLowerCase() }` } color="primary">
+        {MenuItemsNuruja.map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton
+              component={Link}
+              to={`/${text.toLowerCase()}`}
+              color="primary"
+            >
               <ListItemIcon>
                 <Button>
-                  { text.toLowerCase() === "books" ? (
-                    <BookIcon/>
+                  {text.toLowerCase() === "books" ? (
+                    <BookIcon />
                   ) : text.toLowerCase() === "members" ? (
-                    <PeopleIcon/>
+                    <PeopleIcon />
                   ) : text.toLowerCase() === "balances" ? (
-                    <PaymentsIcon/>
+                    <PaymentsIcon />
                   ) : (
-                    <LibraryBooksIcon/>
-                  ) }
+                    <LibraryBooksIcon />
+                  )}
                 </Button>
               </ListItemIcon>
-              <ListItemText primary={ text }/>
+              <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
-        )) }
+        ))}
       </List>
-      <Divider/>
+      <Divider />
     </div>
   );
 
@@ -110,74 +114,80 @@ export const AppBarAndDrawer = (props) => {
     <>
       <AppBar
         position="fixed"
-        sx={ {
-          width: { sm: `calc(100% - ${ props.drawerWidth }px)` },
-          ml: { sm: `${ props.drawerWidth }px` },
-        } }
+        sx={{
+          width: { sm: `calc(100% - ${props.drawerWidth}px)` },
+          ml: { sm: `${props.drawerWidth}px` },
+        }}
       >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={ handleDrawerToggle }
-            sx={ { mr: 2, display: { sm: "none" } } }
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={ { flexGrow: 1 } }>
-            <Button variant="text" component={ Link } to={ "/" } color="primary" size="large"
-                    sx={ { fontWeight: "bold", color: "white" } }>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            <Button
+              variant="text"
+              component={Link}
+              to={"/"}
+              color="primary"
+              size="large"
+              sx={{ fontWeight: "bold", color: "white" }}
+            >
               Nuruja
             </Button>
           </Typography>
           <Search>
             <SearchIconWrapper>
-              <SearchIcon/>
+              <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
-              inputProps={ { "aria-label": "search" } }
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
-        sx={ { width: { sm: props.drawerWidth }, flexShrink: { sm: 0 } } }
+        sx={{ width: { sm: props.drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */ }
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={ container }
+          container={container}
           variant="temporary"
-          open={ mobileOpen }
-          onClose={ handleDrawerToggle }
-          ModalProps={ {
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
             keepMounted: true, // Better open performance on mobile.
-          } }
-          sx={ {
+          }}
+          sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: props.drawerWidth,
             },
-          } }
+          }}
         >
-          { drawer }
+          {drawer}
         </Drawer>
         <Drawer
           variant="permanent"
-          sx={ {
+          sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: props.drawerWidth,
             },
-          } }
+          }}
           open
         >
-          { drawer }
+          {drawer}
         </Drawer>
       </Box>
     </>

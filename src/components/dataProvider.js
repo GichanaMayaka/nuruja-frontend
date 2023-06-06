@@ -1,9 +1,4 @@
-export const MenuItemsNuruja = [
-  "Books",
-  "Members",
-  "Balances",
-  "Shelf",
-];
+export const MenuItemsNuruja = ["Books", "Members", "Balances", "Shelf"];
 
 function createBooks(id, name, author, dateOfPublication, rentPrice, isRented) {
   return { id, name, author, dateOfPublication, rentPrice, isRented };
@@ -14,17 +9,94 @@ function createMembers(id, name, address, email, phoneNumber) {
 }
 
 export const books = [
-  createBooks(1, "Gardens of the Moon", "Steven Erickson", "1999-01-01", 100, "false"),
-  createBooks(2, "DeadHouse Gates", "Steven Erickson", "2001-01-01", 100, "false"),
-  createBooks(3, "Memories of Ice", "Steven Erickson", "2002-01-01", 100, "false"),
-  createBooks(4, "House of Chains", "Steven Erickson", "2004-01-01", 100, "false"),
-  createBooks(5, "Midnight Tides", "Steven Erickson", "2005-01-01", 100, "false"),
-  createBooks(6, "The BoneHunters", "Steven Erickson", "2007-01-01", 100, "false"),
-  createBooks(7, "Reaper's Gale", "Steven Erickson", "2008-01-01", 100, "false"),
-  createBooks(8, "Toll the Hounds", "Steven Erickson", "2008-01-01", 100, "false"),
-  createBooks(9, "Dust of Dreams", "Steven Erickson", "2008-01-01", 100, "false"),
-  createBooks(10, "The Crippled God", "Steven Erickson", "2008-01-01", 100, "false"),
-  createBooks(11, "Before they are Hanged", "Joe Abercrombie", "2008-01-01", 100, "false"),
+  createBooks(
+    1,
+    "Gardens of the Moon",
+    "Steven Erickson",
+    "1999-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    2,
+    "DeadHouse Gates",
+    "Steven Erickson",
+    "2001-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    3,
+    "Memories of Ice",
+    "Steven Erickson",
+    "2002-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    4,
+    "House of Chains",
+    "Steven Erickson",
+    "2004-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    5,
+    "Midnight Tides",
+    "Steven Erickson",
+    "2005-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    6,
+    "The BoneHunters",
+    "Steven Erickson",
+    "2007-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    7,
+    "Reaper's Gale",
+    "Steven Erickson",
+    "2008-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    8,
+    "Toll the Hounds",
+    "Steven Erickson",
+    "2008-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    9,
+    "Dust of Dreams",
+    "Steven Erickson",
+    "2008-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    10,
+    "The Crippled God",
+    "Steven Erickson",
+    "2008-01-01",
+    100,
+    "false"
+  ),
+  createBooks(
+    11,
+    "Before they are Hanged",
+    "Joe Abercrombie",
+    "2008-01-01",
+    100,
+    "false"
+  ),
 ];
 
 export const members = [
@@ -63,8 +135,8 @@ export const booksColumns = [
     label: "Rented?",
     // minWidth: 100,
     align: "right",
-    format: (value) => value.toLocaleString("en-US")
-  }
+    format: (value) => value.toLocaleString("en-US"),
+  },
 ];
 
 export const membersColumns = [
@@ -91,19 +163,31 @@ export const membersColumns = [
 ];
 
 export const dataGridColumns = [
-  { field: 'name', headerName: 'Name', width: 200, editable: true, type: 'text' },
-  { field: 'author', headerName: 'Author', type: 'text', editable: true, width: 200 },
   {
-    field: 'dateOfPublication',
-    headerName: 'Date of Publication',
+    field: "name",
+    headerName: "Name",
+    width: 200,
+    editable: true,
+    type: "text",
+  },
+  {
+    field: "author",
+    headerName: "Author",
+    type: "text",
+    editable: true,
+    width: 200,
+  },
+  {
+    field: "dateOfPublication",
+    headerName: "Date of Publication",
     // type: 'date',
     width: 200,
     editable: true,
   },
   {
-    field: 'rentPrice',
-    headerName: 'Rent Price',
-    type: 'number',
+    field: "rentPrice",
+    headerName: "Rent Price",
+    type: "number",
     width: 100,
     editable: true,
   },

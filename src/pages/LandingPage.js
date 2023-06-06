@@ -5,9 +5,11 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
 export const LandingPage = () => {
   return (
-    <Container sx={ { display: "flex" } }>
+    <Container sx={{ display: "flex" }}>
       <ResponsiveDrawer>
-        <Typography>Welcome to Nuruja (https://github.com/GichanaMayaka/nuruja)</Typography>
+        <Typography>
+          Welcome to Nuruja (https://github.com/GichanaMayaka/nuruja)
+        </Typography>
       </ResponsiveDrawer>
     </Container>
   );

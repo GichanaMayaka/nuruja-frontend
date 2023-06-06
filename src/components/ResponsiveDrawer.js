@@ -8,18 +8,18 @@ const drawerWidth = 240;
 
 function ResponsiveDrawer({ children }) {
   return (
-    <Box sx={ { display: "flex" } }>
-      <CssBaseline/>
-      <AppBarAndDrawer drawerWidth={drawerWidth}/>
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBarAndDrawer drawerWidth={drawerWidth} />
       <Box
-        sx={ {
+        sx={{
           flexGrow: 1,
           p: 1,
-          width: { sm: `calc(100% - ${ drawerWidth }px)` },
-        } }
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
-        <Toolbar/>
-        { children }
+        <Toolbar />
+        {children}
       </Box>
     </Box>
   );
