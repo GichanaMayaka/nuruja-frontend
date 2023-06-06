@@ -3,25 +3,23 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import { AppBarAndDrawer } from "./AppBarAndDrawer";
-import DataDisplay from "./DataDisplay";
 
 const drawerWidth = 240;
 
-function ResponsiveDrawer({ columns, data, url }) {
+function ResponsiveDrawer({ children }) {
   return (
     <Box sx={ { display: "flex" } }>
       <CssBaseline/>
-      <AppBarAndDrawer/>
+      <AppBarAndDrawer drawerWidth={drawerWidth}/>
       <Box
-        component="main"
         sx={ {
           flexGrow: 1,
-          p: 3,
+          p: 1,
           width: { sm: `calc(100% - ${ drawerWidth }px)` },
         } }
       >
         <Toolbar/>
-        <DataDisplay columns={ columns } data={ data } url={url}/>
+        { children }
       </Box>
     </Box>
   );

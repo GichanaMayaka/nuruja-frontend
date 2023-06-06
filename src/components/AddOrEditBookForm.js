@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Stack, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-export default function EditBookForm() {
+export default function AddOrEditBookForm() {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [dateOfPublication, setDateOfPublication] = useState('');
@@ -74,7 +74,7 @@ export default function EditBookForm() {
           required
           sx={ { mb: 4 } }
         />
-        <Button variant="outlined" color="secondary" type="submit">Register</Button>
+        <Button variant="outlined" color="secondary" type="submit">Confirm Edit</Button>
       </form>
     </>
   );
