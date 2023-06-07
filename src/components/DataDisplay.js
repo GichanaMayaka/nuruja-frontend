@@ -11,14 +11,14 @@ import * as React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { Button, Grid, IconButton } from "@mui/material";
+import { Button, Container, Grid, IconButton } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 
 export default function DataDisplay({ columns, data, url }) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [link, setLink] = React.useState(url);
   const navigate = useNavigate();
 
@@ -38,12 +38,15 @@ export default function DataDisplay({ columns, data, url }) {
   };
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={"auto"} md={"auto"}>
-        <Paper sx={{ overflow: "hidden", width: "100%" }}>
+    <Grid component={Container} spacing={1}>
+      <Grid item xs={10}>
+        <Paper
+          sx={{ overflow: "hidden", width: "100%", marginTop: 2 }}
+          elevation={3}
+        >
           <TableContainer sx={{ maxHeight: 920 }}>
             <Table stickyHeader aria-label="sticky table">
-              <TableHead>
+              <TableHead sx={{ color: "#386641" }}>
                 <TableRow>
                   {columns.map((column) => (
                     <TableCell
@@ -89,7 +92,7 @@ export default function DataDisplay({ columns, data, url }) {
                               handleNavigation(`/${link}/${row.id}`);
                             }}
                           >
-                            <EditIcon disableRipple />
+                            <EditIcon />
                           </IconButton>
                         </Tooltip>
                         {url.includes("members") ? (
@@ -105,7 +108,7 @@ export default function DataDisplay({ columns, data, url }) {
                                 handleNavigation(`/${link}/${row.id}/borrow`);
                               }}
                             >
-                              <BookmarkAddIcon disableRipple />
+                              <BookmarkAddIcon />
                             </IconButton>
                           </Tooltip>
                         ) : null}
@@ -130,7 +133,7 @@ export default function DataDisplay({ columns, data, url }) {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[5, 10, 25, 100]}
             component="div"
             count={data.length}
             rowsPerPage={rowsPerPage}
@@ -141,12 +144,12 @@ export default function DataDisplay({ columns, data, url }) {
         </Paper>
       </Grid>
       {url.includes("book") ? (
-        <Grid item xs={"auto"} md={"auto"}>
+        <Grid item xs={1}>
           <Button
             variant="text"
             color="secondary"
             size="large"
-            onClick={() => handleNavigation(`/books/1`)}
+            onClick={() => handleNavigation(`/books/new`)}
           >
             Add a Book
           </Button>

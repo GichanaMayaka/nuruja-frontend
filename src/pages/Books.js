@@ -3,9 +3,9 @@ import React from "react";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import DataDisplay from "../components/DataDisplay";
 
-export const Books = ({ columns, data, url }) => {
+export const Books = ({ columns, data, url, apiEndpoint }) => {
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
+    <Container>
       <ResponsiveDrawer>
         <DataDisplay columns={columns} data={data} url={url} />
       </ResponsiveDrawer>

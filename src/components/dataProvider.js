@@ -1,139 +1,55 @@
 export const MenuItemsNuruja = ["Books", "Members", "Balances", "Shelf"];
 
-function createBooks(id, name, author, dateOfPublication, rentPrice, isRented) {
-  return { id, name, author, dateOfPublication, rentPrice, isRented };
-}
-
-function createMembers(id, name, address, email, phoneNumber) {
-  return { id, name, address, email, phoneNumber };
-}
-
-export const books = [
-  createBooks(
-    1,
-    "Gardens of the Moon",
-    "Steven Erickson",
-    "1999-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    2,
-    "DeadHouse Gates",
-    "Steven Erickson",
-    "2001-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    3,
-    "Memories of Ice",
-    "Steven Erickson",
-    "2002-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    4,
-    "House of Chains",
-    "Steven Erickson",
-    "2004-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    5,
-    "Midnight Tides",
-    "Steven Erickson",
-    "2005-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    6,
-    "The BoneHunters",
-    "Steven Erickson",
-    "2007-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    7,
-    "Reaper's Gale",
-    "Steven Erickson",
-    "2008-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    8,
-    "Toll the Hounds",
-    "Steven Erickson",
-    "2008-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    9,
-    "Dust of Dreams",
-    "Steven Erickson",
-    "2008-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    10,
-    "The Crippled God",
-    "Steven Erickson",
-    "2008-01-01",
-    100,
-    "false"
-  ),
-  createBooks(
-    11,
-    "Before they are Hanged",
-    "Joe Abercrombie",
-    "2008-01-01",
-    100,
-    "false"
-  ),
-];
-
-export const members = [
-  createMembers(1, "gichana", "Ngong'", "gichana@email.com", "1041"),
-  createMembers(2, "jusline", "mmong'", "jusline@email.com", "1051"),
-  createMembers(3, "joy", "ndromm'", "joy@email.com", "1061"),
-];
-
 export const booksColumns = [
   {
-    id: "name",
-    label: "Name",
-    // minWidth: 170
+    id: "title",
+    label: "Title",
+    minWidth: "12%"
   },
   {
     id: "author",
     label: "Author",
-    // minWidth: 100
+    minWidth: "12%"
   },
   {
-    id: "dateOfPublication",
+    id: "isbn",
+    label: "ISBN",
+    minWidth: "12%",
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "date_of_publication",
     label: "Date of Publication",
-    // minWidth: 170,
+    minWidth: "12%",
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "rentPrice",
-    label: "Rent Price",
-    // minWidth: 170,
+    id: "status",
+    label: "Status",
+    minWidth: "12%",
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "isRented",
-    label: "Rented?",
-    // minWidth: 100,
+    id: "category",
+    label: "Category",
+    minWidth: "12%",
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "rent_fee",
+    label: "Rent Price (KShs.)",
+    minWidth: "12%",
+    align: "right",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "late_penalty_fee",
+    label: "Late Fee (KShs.)",
+    minWidth: "12%",
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
@@ -141,8 +57,8 @@ export const booksColumns = [
 
 export const membersColumns = [
   {
-    id: "name",
-    label: "Name",
+    id: "username",
+    label: "Username",
     // minWidth: 170
   },
   {
@@ -156,39 +72,8 @@ export const membersColumns = [
     // minWidth: 100
   },
   {
-    id: "phoneNumber",
+    id: "phone_number",
     label: "Phone Number",
     // minWidth: 100
-  },
-];
-
-export const dataGridColumns = [
-  {
-    field: "name",
-    headerName: "Name",
-    width: 200,
-    editable: true,
-    type: "text",
-  },
-  {
-    field: "author",
-    headerName: "Author",
-    type: "text",
-    editable: true,
-    width: 200,
-  },
-  {
-    field: "dateOfPublication",
-    headerName: "Date of Publication",
-    // type: 'date',
-    width: 200,
-    editable: true,
-  },
-  {
-    field: "rentPrice",
-    headerName: "Rent Price",
-    type: "number",
-    width: 100,
-    editable: true,
   },
 ];
