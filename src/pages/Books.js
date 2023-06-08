@@ -7,7 +7,7 @@ export const Books = ({ columns, data, url, apiEndpoint }) => {
   return (
     <Container>
       <ResponsiveDrawer>
-        <DataDisplay columns={columns} data={data} url={url} />
+        <DataDisplay columns={columns} data={data} url={url} apiEndpoint={apiEndpoint} />
       </ResponsiveDrawer>
     </Container>
   );

@@ -1,19 +1,19 @@
 import React from "react";
 import { Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
-import DataDisplay from "../components/DataDisplay";
+import MemberForm from "../components/MemberForm";
 
-export const Members = ({ columns, data, url, apiEndpoint }) => {
+function AddMember({ apiEndpoint }) {
+  const action = "add";
+  const path = `${apiEndpoint}members/new`;
+
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
-        <DataDisplay
-          columns={columns}
-          data={data}
-          url={url}
-          apiEndpoint={apiEndpoint}
-        />
+        <MemberForm action={action} apiEndpoint={path} />
       </ResponsiveDrawer>
     </Container>
   );
-};
+}
+
+export default AddMember;

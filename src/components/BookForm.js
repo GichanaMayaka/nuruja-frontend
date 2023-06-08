@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
-import { postData } from "./utils";
+import { postData } from "./Utils";
 
 const BookForm = ({ action, apiEndpoint }) => {
   const [title, setTitle] = useState("");
@@ -12,6 +12,9 @@ const BookForm = ({ action, apiEndpoint }) => {
   const [rentStatus, setRentStatus] = useState("not-rented");
   const [latePenaltyFee, setLatePenaltyFee] = useState(250);
   const [endpoint, setEndpoint] = useState(apiEndpoint);
+  const [submitStatus, setSubmitStatus] = useState(false);
+  const [responseDetails, setResponseDetails] = useState("");
+
   let submitMethod;
   let formTitle;
 
@@ -23,7 +26,7 @@ const BookForm = ({ action, apiEndpoint }) => {
     formTitle = "Add a Book";
   }
 
-  function handleAddBookSubmit(event) {
+  function handleBookFormSubmit(event) {
     event.preventDefault();
 
     const payload = {
@@ -37,7 +40,11 @@ const BookForm = ({ action, apiEndpoint }) => {
     };
 
     postData(endpoint, payload, submitMethod).then((r) => {
-      console.log(r.details);
+      if (r.status === 200 || r.status === 201) {
+        setSubmitStatus(true);
+        setResponseDetails(r.details);
+        console.log(submitStatus);
+      }
     });
   }
 
@@ -46,7 +53,7 @@ const BookForm = ({ action, apiEndpoint }) => {
       <Typography variant="h4" component="h2">
         {formTitle}
       </Typography>
-      <form onSubmit={handleAddBookSubmit}>
+      <form onSubmit={handleBookFormSubmit}>
         <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
           <TextField
             type="text"

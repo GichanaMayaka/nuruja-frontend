@@ -15,8 +15,9 @@ import { Button, Container, Grid, IconButton } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import { useNavigate } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
+import { deleteItem } from "./Utils";
 
-export default function DataDisplay({ columns, data, url }) {
+export default function DataDisplay({ columns, data, url, apiEndpoint }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [link, setLink] = React.useState(url);
@@ -120,7 +121,11 @@ export default function DataDisplay({ columns, data, url }) {
                         >
                           <IconButton
                             onClick={() => {
-                              handleNavigation(`/${link}/${row.id}`);
+                              deleteItem(
+                                `${apiEndpoint}${link}/${row.id}/delete`
+                              ).then((r) => {
+                                console.log(r);
+                              });
                             }}
                           >
                             <DeleteIcon color="warning" />
@@ -152,6 +157,17 @@ export default function DataDisplay({ columns, data, url }) {
             onClick={() => handleNavigation(`/books/new`)}
           >
             Add a Book
+          </Button>
+        </Grid>
+      ) : url.includes("member") ? (
+        <Grid item xs={1}>
+          <Button
+            variant="text"
+            color="secondary"
+            size="large"
+            onClick={() => handleNavigation(`/members/new`)}
+          >
+            Add a Member
           </Button>
         </Grid>
       ) : null}
