@@ -4,7 +4,10 @@ import Paper from "@mui/material/Paper";
 
 export default function DataDisplayGrid({ data, columns, loadingStatus }) {
   return (
-    <Paper sx={{ width: "100%", overflow: "overflow", marginTop: 3 }} elevation={3}>
+    <Paper
+      sx={{ width: "100%", overflow: "overflow", marginTop: 3 }}
+      elevation={3}
+    >
       <DataGrid
         rows={data}
         columns={columns}
@@ -16,6 +19,12 @@ export default function DataDisplayGrid({ data, columns, loadingStatus }) {
         }}
         autoHeight
         loading={loadingStatus}
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: 10, page: 0 },
+          },
+        }}
+        pageSizeOptions={[5, 10, 25, 50, 100]}
       />
     </Paper>
   );

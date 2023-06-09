@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React from "react";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { coreBookDataGridColumns } from "../components/dataProvider";
@@ -8,6 +8,7 @@ import {
   EditIconButtonRenderer,
   fetchData,
 } from "../components/Utils";
+import { useNavigate } from "react-router-dom";
 
 const additionalColumns = [
   {
@@ -33,6 +34,7 @@ export function Books({ api }) {
   const [books, setBooks] = React.useState([]);
   const [errorDetails, setErrorDetails] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
+  const navigation = useNavigate();
   const booksContextColumns = [
     ...coreBookDataGridColumns,
     ...additionalColumns,
@@ -53,6 +55,16 @@ export function Books({ api }) {
           columns={booksContextColumns}
           loadingStatus={isLoading}
         />
+        <Button
+          variant="text"
+          color="secondary"
+          size="large"
+          onClick={() => {
+            navigation("new");
+          }}
+        >
+          Add a Book
+        </Button>
       </ResponsiveDrawer>
     </Container>
   );

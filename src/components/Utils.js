@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { BookmarkAdded } from "@mui/icons-material";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 
 export async function postData(url, data = {}, method = "POST") {
   const response = await fetch(url, {
@@ -86,11 +87,34 @@ export function RentToIconButtonRenderer({ params }) {
         color="secondary"
         size="small"
         onClick={() => {
-          console.log(params.row.id);
           navigation(`${params.row.id}/borrow`);
         }}
       >
         <BookmarkAdded />
+      </IconButton>
+    </Tooltip>
+  );
+}
+
+export function InitiateRentIconButtonRenderer({ params, endpoint }) {
+  const navigation = useNavigate();
+  let payload;
+
+  const handleInitiateBorrow = () => {
+    payload = {
+      book_id: params.row.id,
+    };
+
+    postData(endpoint, payload, "POST").then((r) => {
+      alert("Borrow Initiated. Redirecting");
+      navigation(-1);
+    });
+  };
+
+  return (
+    <Tooltip title={"Initiate Borrow"} arrow>
+      <IconButton color="secondary" size="small" onClick={handleInitiateBorrow}>
+        <BookmarkAddIcon />
       </IconButton>
     </Tooltip>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreMembersDataGridColumns } from "../components/dataProvider";
@@ -9,6 +9,7 @@ import {
   fetchData,
   RentToIconButtonRenderer,
 } from "../components/Utils";
+import { useNavigate } from "react-router-dom";
 
 const additionalColumns = [
   {
@@ -41,6 +42,7 @@ export const Members = ({ api }) => {
   const [members, setMembers] = React.useState([]);
   const [apiEndpoint, setApiEndpoint] = React.useState(`${api}members`);
   const [isLoading, setIsLoading] = React.useState(true);
+  const navigation = useNavigate();
   const membersContextColumns = [
     ...coreMembersDataGridColumns,
     ...additionalColumns,
@@ -61,6 +63,16 @@ export const Members = ({ api }) => {
           columns={membersContextColumns}
           loadingStatus={isLoading}
         />
+        <Button
+          variant="text"
+          color="secondary"
+          size="large"
+          onClick={() => {
+            navigation("new");
+          }}
+        >
+          Add a Member
+        </Button>
       </ResponsiveDrawer>
     </Container>
   );
