@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { Books } from "./pages/Books";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { booksColumns, membersColumns } from "./components/dataProvider";
+import { booksColumns, membersColumns, dataGridColumns } from "./components/dataProvider";
 import { Members } from "./pages/Members";
 import { LandingPage } from "./pages/LandingPage";
 import EditBook from "./pages/EditBook";
@@ -11,6 +11,7 @@ import AddBook from "./pages/AddBook";
 import DeleteItem from "./pages/DeleteItem";
 import AddMember from "./pages/AddMember";
 import EditMember from "./pages/EditMember";
+import RentBook from "./pages/RentBook";
 
 const appTheme = createTheme({
   status: {
@@ -38,19 +39,19 @@ const appTheme = createTheme({
 const API_ENDPOINT = new URL("http://127.0.0.1:8000/");
 
 function App() {
-  const [url, setUrl] = React.useState(API_ENDPOINT);
+  const [endpoint, setEndpoint] = React.useState(API_ENDPOINT);
   const [books, setBooks] = React.useState([]);
   const [members, setMembers] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(`${url.href}/books`).then((response) => {
+    axios.get(`${endpoint.href}/books`).then((response) => {
       setBooks(response.data.books);
     });
   }, []);
 
   React.useEffect(() => {
-    axios.get(`${url.href}/members`).then((response) => {
-      setMembers(response.data.users);
+    axios.get(`${endpoint.href}/members`).then((response) => {
+      setMembers(response.data.members);
     });
   }, []);
 
@@ -66,15 +67,15 @@ function App() {
                 columns={booksColumns}
                 data={books}
                 url={"books"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
-          <Route path="/books/new" element={<AddBook apiEndpoint={url} />} />
-          <Route path="/books/:id" element={<EditBook apiEndpoint={url} />} />
+          <Route path="/books/new" element={<AddBook apiEndpoint={endpoint} />} />
+          <Route path="/books/:id" element={<EditBook apiEndpoint={endpoint} />} />
           <Route
             path="/books/:id/delete"
-            element={<DeleteItem url={"books"} apiEndpoint={url} />}
+            element={<DeleteItem url={"books"} apiEndpoint={endpoint} />}
           />
           <Route
             path="/members"
@@ -83,17 +84,17 @@ function App() {
                 columns={membersColumns}
                 data={members}
                 url={"members"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
           <Route
             path="/members/new"
-            element={<AddMember apiEndpoint={url} />}
+            element={<AddMember apiEndpoint={endpoint} />}
           />
           <Route
             path="/members/:id"
-            element={<EditMember apiEndpoint={url} />}
+            element={<EditMember apiEndpoint={endpoint} />}
           />
           <Route
             path="/members/:id/delete"
@@ -102,19 +103,14 @@ function App() {
                 columns={membersColumns}
                 data={members}
                 url={"members"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
           <Route
             path="/members/:id/borrow"
             element={
-              <Books
-                columns={booksColumns}
-                data={books}
-                url={"members"}
-                apiEndpoint={url}
-              />
+              <RentBook data={books} columns={dataGridColumns} apiEndpoint={endpoint} />
             }
           />
           <Route
@@ -124,7 +120,7 @@ function App() {
                 columns={membersColumns}
                 data={members}
                 url={"balances"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
@@ -135,7 +131,7 @@ function App() {
                 columns={booksColumns}
                 data={books}
                 url={"shelf"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
@@ -146,7 +142,7 @@ function App() {
                 columns={booksColumns}
                 data={books}
                 url={"balances"}
-                apiEndpoint={url}
+                apiEndpoint={endpoint}
               />
             }
           />
