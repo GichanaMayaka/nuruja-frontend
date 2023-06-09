@@ -1,5 +1,7 @@
 import IconButton from "@mui/material/IconButton";
 import BookmarkAddedIcon from "@mui/icons-material/BookmarkAdded";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const MenuItemsNuruja = ["Books", "Members", "Balances", "Shelf"];
 
@@ -81,7 +83,38 @@ export const membersColumns = [
   },
 ];
 
-export const dataGridColumns = [
+export const coreMembersDataGridColumns = [
+  {
+    field: "username",
+    headerName: "Name",
+    editable: true,
+    type: "text",
+    width: 150,
+  },
+  {
+    field: "address",
+    headerName: "Address",
+    editable: true,
+    type: "text",
+    width: 150,
+  },
+  {
+    field: "email",
+    headerName: "E-Mail",
+    editable: true,
+    type: "email",
+    width: 150,
+  },
+  {
+    field: "phone_number",
+    headerName: "Phone Number",
+    editable: true,
+    type: "number",
+    width: 150,
+  },
+];
+
+export const coreBookDataGridColumns = [
   {
     field: "isbn",
     headerName: "ISBN",
@@ -130,26 +163,18 @@ export const dataGridColumns = [
     sortable: true,
     width: 90,
   },
-  {
-    headerName: "",
-    renderCell: renderDetailsButton,
-    sortable: false,
-    editable: false,
-  },
 ];
 
-function renderDetailsButton(params) {
+export function renderRentToIconButton(params) {
   return (
-    <strong>
-      <IconButton
-        color="secondary"
-        size="small"
-        onClick={() => {
-          console.log(params.row.title);
-        }}
-      >
-        <BookmarkAddedIcon />
-      </IconButton>
-    </strong>
+    <IconButton
+      color="secondary"
+      size="small"
+      onClick={() => {
+        console.log(params.row.id);
+      }}
+    >
+      <BookmarkAddedIcon />
+    </IconButton>
   );
 }

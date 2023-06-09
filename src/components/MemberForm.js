@@ -8,7 +8,6 @@ function MemberForm({ action, apiEndpoint }) {
   const [email, setEmail] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [address, setAddress] = React.useState("");
-  const [isAdmin, setIsAdmin] = React.useState(false);
   const [endpoint, setEndpoint] = useState(apiEndpoint);
   const [submitStatus, setSubmitStatus] = useState(false);
   const [responseDetails, setResponseDetails] = useState("");
@@ -32,7 +31,6 @@ function MemberForm({ action, apiEndpoint }) {
       email: email,
       phone_number: phoneNumber,
       address: address,
-      is_admin: isAdmin,
     };
 
     postData(endpoint, payload, submitMethod).then((r) => {
@@ -88,17 +86,6 @@ function MemberForm({ action, apiEndpoint }) {
             label="Address"
             onChange={(e) => setAddress(e.target.value)}
             value={address}
-            fullWidth
-            required
-            sx={{ mb: 4 }}
-          />
-          <TextField
-            type="text"
-            variant="outlined"
-            color="secondary"
-            label="is admin"
-            onChange={(e) => setIsAdmin(e.target.value)}
-            value={isAdmin}
             fullWidth
             required
             sx={{ mb: 4 }}

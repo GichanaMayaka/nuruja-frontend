@@ -2,7 +2,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { Books } from "./pages/Books";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { booksColumns, membersColumns, dataGridColumns } from "./components/dataProvider";
+import {
+  booksColumns,
+  coreBookDataGridColumns,
+  membersColumns,
+} from "./components/dataProvider";
 import { Members } from "./pages/Members";
 import { LandingPage } from "./pages/LandingPage";
 import EditBook from "./pages/EditBook";
@@ -60,34 +64,20 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/books" element={<Books api={endpoint} />} />
           <Route
-            path="/books"
-            element={
-              <Books
-                columns={booksColumns}
-                data={books}
-                url={"books"}
-                apiEndpoint={endpoint}
-              />
-            }
+            path="/books/new"
+            element={<AddBook apiEndpoint={endpoint} />}
           />
-          <Route path="/books/new" element={<AddBook apiEndpoint={endpoint} />} />
-          <Route path="/books/:id" element={<EditBook apiEndpoint={endpoint} />} />
+          <Route
+            path="/books/:id"
+            element={<EditBook apiEndpoint={endpoint} />}
+          />
           <Route
             path="/books/:id/delete"
             element={<DeleteItem url={"books"} apiEndpoint={endpoint} />}
           />
-          <Route
-            path="/members"
-            element={
-              <Members
-                columns={membersColumns}
-                data={members}
-                url={"members"}
-                apiEndpoint={endpoint}
-              />
-            }
-          />
+          <Route path="/members" element={<Members api={endpoint} />} />
           <Route
             path="/members/new"
             element={<AddMember apiEndpoint={endpoint} />}
@@ -110,7 +100,11 @@ function App() {
           <Route
             path="/members/:id/borrow"
             element={
-              <RentBook data={books} columns={dataGridColumns} apiEndpoint={endpoint} />
+              <RentBook
+                data={books}
+                columns={coreBookDataGridColumns}
+                apiEndpoint={endpoint}
+              />
             }
           />
           <Route
