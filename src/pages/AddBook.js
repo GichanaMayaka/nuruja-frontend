@@ -3,9 +3,9 @@ import BookForm from "../components/BookForm";
 import { Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
-export default function AddBook({ apiEndpoint }) {
+export default function AddBook({ api }) {
   const action = "add";
-  const path = `${apiEndpoint}books/new`;
+  const path = `${api}books/new`;
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

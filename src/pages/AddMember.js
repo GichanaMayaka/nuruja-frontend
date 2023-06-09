@@ -3,9 +3,9 @@ import { Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import MemberForm from "../components/MemberForm";
 
-function AddMember({ apiEndpoint }) {
+function AddMember({ api }) {
   const action = "add";
-  const path = `${apiEndpoint}members/new`;
+  const path = `${api}members/new`;
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

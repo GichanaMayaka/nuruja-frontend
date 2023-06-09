@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 
 export default function DataDisplayGrid({ data, columns, loadingStatus }) {
   return (
-    <Paper sx={{ width: "100%", overflow: "overflow" }}>
+    <Paper sx={{ width: "100%", overflow: "overflow", marginTop: 3 }} elevation={3}>
       <DataGrid
         rows={data}
         columns={columns}

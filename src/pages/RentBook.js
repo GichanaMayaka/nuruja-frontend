@@ -19,16 +19,14 @@ const additionalColumns = [
   },
 ];
 
-function RentBook({ apiEndpoint, columns, data }) {
-  // const action = "rent";
+function RentBook({ api }) {
   const { id } = useParams();
-  // const [path] = React.useState(`${apiEndpoint}members/${id}/borrow`);
 
   const contextColumns = [...coreBookDataGridColumns, ...additionalColumns];
   const [bookId, setBookId] = React.useState(0);
   const [availableBooks, setAvailableBooks] = React.useState([]);
   const [fetchBooksEndpoint, setFetchBooksEndpoint] = React.useState(
-    `${apiEndpoint}books/available`
+    `${api}books/available`
   );
   const [errorDetails, setErrorDetails] = React.useState("");
   const navigate = useNavigate();
@@ -60,7 +58,7 @@ function RentBook({ apiEndpoint, columns, data }) {
         <DataDisplayGrid
           columns={contextColumns}
           data={availableBooks}
-          apiEndpoint={apiEndpoint}
+          apiEndpoint={api}
         />
       </ResponsiveDrawer>
     </Container>

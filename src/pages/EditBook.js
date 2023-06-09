@@ -4,10 +4,10 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import BookForm from "../components/BookForm";
 import { useParams } from "react-router-dom";
 
-export default function EditBook({ apiEndpoint }) {
+export default function EditBook({ api }) {
   const action = "edit";
   const { id } = useParams();
-  const path = `${apiEndpoint}books/${id}`;
+  const path = `${api}books/${id}`;
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

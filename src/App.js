@@ -47,99 +47,32 @@ function App() {
   const [books, setBooks] = React.useState([]);
   const [members, setMembers] = React.useState([]);
 
-  React.useEffect(() => {
-    axios.get(`${endpoint.href}/books`).then((response) => {
-      setBooks(response.data.books);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    axios.get(`${endpoint.href}/members`).then((response) => {
-      setMembers(response.data.members);
-    });
-  }, []);
-
   return (
     <ThemeProvider theme={appTheme}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/books" element={<Books api={endpoint} />} />
-          <Route
-            path="/books/new"
-            element={<AddBook apiEndpoint={endpoint} />}
-          />
-          <Route
-            path="/books/:id"
-            element={<EditBook apiEndpoint={endpoint} />}
-          />
+          <Route path="/books/new" element={<AddBook api={endpoint} />} />
+          <Route path="/books/:id" element={<EditBook api={endpoint} />} />
           <Route
             path="/books/:id/delete"
             element={<DeleteItem url={"books"} apiEndpoint={endpoint} />}
           />
           <Route path="/members" element={<Members api={endpoint} />} />
-          <Route
-            path="/members/new"
-            element={<AddMember apiEndpoint={endpoint} />}
-          />
-          <Route
-            path="/members/:id"
-            element={<EditMember apiEndpoint={endpoint} />}
-          />
+          <Route path="/members/new" element={<AddMember api={endpoint} />} />
+          <Route path="/members/:id" element={<EditMember api={endpoint} />} />
           <Route
             path="/members/:id/delete"
-            element={
-              <EditBook
-                columns={membersColumns}
-                data={members}
-                url={"members"}
-                apiEndpoint={endpoint}
-              />
-            }
+            element={<EditBook api={endpoint} />}
           />
           <Route
             path="/members/:id/borrow"
-            element={
-              <RentBook
-                data={books}
-                columns={coreBookDataGridColumns}
-                apiEndpoint={endpoint}
-              />
-            }
+            element={<RentBook api={endpoint} />}
           />
-          <Route
-            path="/balances"
-            element={
-              <Members
-                columns={membersColumns}
-                data={members}
-                url={"balances"}
-                apiEndpoint={endpoint}
-              />
-            }
-          />
-          <Route
-            path="/shelf"
-            element={
-              <Books
-                columns={booksColumns}
-                data={books}
-                url={"shelf"}
-                apiEndpoint={endpoint}
-              />
-            }
-          />
-          <Route
-            path="/shelf/:id"
-            element={
-              <EditBook
-                columns={booksColumns}
-                data={books}
-                url={"balances"}
-                apiEndpoint={endpoint}
-              />
-            }
-          />
+          <Route path="/balances" element={<Members api={endpoint} />} />
+          <Route path="/shelf" element={<Books api={endpoint} />} />
+          <Route path="/shelf/:id" element={<EditBook api={endpoint} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

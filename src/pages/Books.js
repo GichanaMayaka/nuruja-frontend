@@ -3,7 +3,6 @@ import React from "react";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { coreBookDataGridColumns } from "../components/dataProvider";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import { useNavigate } from "react-router-dom";
 import {
   DeleteIconButtonRender,
   EditIconButtonRenderer,

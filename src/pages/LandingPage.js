@@ -6,12 +6,10 @@ import Landing from "../components/Landing";
 
 export const LandingPage = () => {
   return (
-    <Container sx={{ display: "flex" }}>
+    <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
         {/*<Landing />*/}
-        <Typography>
-          Welcome to Nuruja.
-        </Typography>
+        <Typography>Welcome to Nuruja.</Typography>
       </ResponsiveDrawer>
     </Container>
   );
