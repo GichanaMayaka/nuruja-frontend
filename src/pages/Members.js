@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import { coreMembersDataGridColumns } from "../components/dataProvider";
+import { coreMembersDataGridColumns } from "../components/Scaffold";
 import {
   DeleteIconButtonRender,
   EditIconButtonRenderer,

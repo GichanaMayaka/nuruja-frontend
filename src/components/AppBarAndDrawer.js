@@ -20,8 +20,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
-import { MenuItemsNuruja } from "./dataProvider";
+import { MenuItemsNuruja } from "./Scaffold";
 import { Link } from "react-router-dom";
+import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
 
 export const AppBarAndDrawer = (props) => {
   const { window } = props;
@@ -94,6 +95,8 @@ export const AppBarAndDrawer = (props) => {
                     <PeopleIcon />
                   ) : text.toLowerCase() === "balances" ? (
                     <PaymentsIcon />
+                  ) : text.toLowerCase() === "returns" ? (
+                    <LibraryAddCheckIcon />
                   ) : (
                     <LibraryBooksIcon />
                   )}

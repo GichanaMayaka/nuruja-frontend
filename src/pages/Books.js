@@ -1,7 +1,7 @@
 import { Button, Container } from "@mui/material";
 import React from "react";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
-import { coreBookDataGridColumns } from "../components/dataProvider";
+import { coreBookDataGridColumns } from "../components/Scaffold";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import {
   DeleteIconButtonRender,
@@ -48,7 +48,7 @@ export function Books({ api }) {
   }, []);
 
   return (
-    <Container>
+    <Container sx={{ display: "flex" }}>
       <ResponsiveDrawer>
         <DataDisplayGrid
           data={books}

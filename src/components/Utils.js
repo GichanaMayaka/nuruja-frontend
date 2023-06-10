@@ -4,42 +4,37 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { BookmarkAdded } from "@mui/icons-material";
+import { BookmarkAdd, BookmarkAdded } from "@mui/icons-material";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import { Alert, AlertTitle } from "@mui/material";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 
-export async function postData(url, data = {}, method = "POST") {
+const init = {
+  mode: "cors", // no-cors, *cors, same-origin
+  credentials: "same-origin",
+  headers: {
+    "Content-Type": "application/json",
+    Origin: "http://localhost:3000",
+  },
+  redirect: "follow",
+  referrerPolicy: "no-referrer",
+};
+
+export async function postData(url, data, method = "POST") {
   const response = await fetch(url, {
-    method: `${method.toUpperCase()}`, // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Origin: "http://localhost:3000",
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    ...init,
+    method: `${method}`,
+    body: JSON.stringify(data),
   });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
-
-export async function deleteItem(url, data = {}, method = "DELETE") {
-  await postData(url, data, method);
+  return response.json();
 }
 
 export async function fetchData(url, method = "GET") {
   const response = await fetch(url, {
-    method: `${method.toUpperCase()}`, // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Origin: "http://localhost:3000",
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    ...init,
+    method: `${method}`,
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response.json();
 }
 
 export function EditIconButtonRenderer({ params }) {
@@ -69,7 +64,7 @@ export function DeleteIconButtonRender({ params }) {
         color="warning"
         size="small"
         onClick={() => {
-          navigation(`${params.row.id}/delete`);
+          navigation(-1);
         }}
       >
         <DeleteIcon />
@@ -106,8 +101,8 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
     };
 
     postData(endpoint, payload, "POST").then((r) => {
-      alert("Borrow Initiated. Redirecting");
-      navigation(-1);
+      alert("Borrow Successful");
+      navigation(0);
     });
   };
 
@@ -117,5 +112,32 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
         <BookmarkAddIcon />
       </IconButton>
     </Tooltip>
+  );
+}
+
+export function InitiateReturnIconRenderer({ params, endpoint }) {
+  const navigation = useNavigate();
+
+  return (
+    <Tooltip title={"Initiate Borrow"} arrow>
+      <IconButton
+        color="secondary"
+        size="small"
+        onClick={() => {
+          console.log("Returning " + params.row.title);
+        }}
+      >
+        <BookmarkRemoveIcon />
+      </IconButton>
+    </Tooltip>
+  );
+}
+
+export function AlertRenderer({ severity, title, message }) {
+  return (
+    <Alert severity={severity}>
+      <AlertTitle>{title}</AlertTitle>
+      {message}
+    </Alert>
   );
 }

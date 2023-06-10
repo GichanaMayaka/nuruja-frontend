@@ -1,34 +1,38 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { Container } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { fetchData, InitiateReturnIconRenderer } from "../components/Utils";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/Scaffold";
-import { fetchData, InitiateRentIconButtonRenderer } from "../components/Utils";
 
-function RentBook({ api }) {
+function ReturnBook({ api }) {
   const { id } = useParams();
 
-  const [bookId, setBookId] = React.useState(0);
-  const [availableBooks, setAvailableBooks] = React.useState([]);
+  const [rentedBooks, setRentedBooks] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [fetchBooksEndpoint, setFetchBooksEndpoint] = React.useState(
-    `${api}books/available`
+  const [fetchRentedBooksEndpoint, setFetchRentedBooksEndpoint] =
+    React.useState(`${api}books/unavailable`);
+  const [postReturnsEndpoint, setPostReturnsEndpoint] = React.useState(
+    `${api}members/${id}/return`
   );
-  const [postBookEndpoint, setPostBookEndpoint] = React.useState(
-    `${api}members/${id}/borrow`
-  );
-
-  const [errorDetails, setErrorDetails] = React.useState("");
   const contextColumns = [
     ...coreBookDataGridColumns,
+    {
+      field: "date_due",
+      headerName: "Date Due",
+      sortable: true,
+      editable: false,
+      type: "Date",
+      flex: 1
+    },
     {
       field: "rent_icon",
       headerName: "",
       renderCell: (params) => (
-        <InitiateRentIconButtonRenderer
+        <InitiateReturnIconRenderer
           params={params}
-          endpoint={postBookEndpoint}
+          endpoint={postReturnsEndpoint}
         />
       ),
       sortable: false,
@@ -38,8 +42,8 @@ function RentBook({ api }) {
   ];
 
   React.useEffect(() => {
-    fetchData(fetchBooksEndpoint).then((r) => {
-      setAvailableBooks(r.books);
+    fetchData(fetchRentedBooksEndpoint).then((r) => {
+      setRentedBooks(r.books);
       setIsLoading(false);
     });
   }, []);
@@ -48,8 +52,8 @@ function RentBook({ api }) {
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         <DataDisplayGrid
+          data={rentedBooks}
           columns={contextColumns}
-          data={availableBooks}
           loadingStatus={isLoading}
         />
       </ResponsiveDrawer>
@@ -57,4 +61,4 @@ function RentBook({ api }) {
   );
 }
 
-export default RentBook;
+export default ReturnBook;

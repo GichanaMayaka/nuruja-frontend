@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
 import { postData } from "./Utils";
+import { useNavigate } from "react-router-dom";
 
 function MemberForm({ action, apiEndpoint }) {
   const [username, setUsername] = React.useState("");
@@ -11,6 +12,7 @@ function MemberForm({ action, apiEndpoint }) {
   const [endpoint, setEndpoint] = useState(apiEndpoint);
   const [submitStatus, setSubmitStatus] = useState(false);
   const [responseDetails, setResponseDetails] = useState("");
+  const navigate = useNavigate()
 
   let submitMethod;
   let formTitle;
@@ -39,6 +41,8 @@ function MemberForm({ action, apiEndpoint }) {
         setResponseDetails(r.details);
       }
     });
+
+    navigate(-1)
   }
 
   return (

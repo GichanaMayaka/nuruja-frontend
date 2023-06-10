@@ -6,10 +6,10 @@ import { Members } from "./pages/Members";
 import { LandingPage } from "./pages/LandingPage";
 import EditBook from "./pages/EditBook";
 import AddBook from "./pages/AddBook";
-import DeleteItem from "./pages/DeleteItem";
 import AddMember from "./pages/AddMember";
 import EditMember from "./pages/EditMember";
 import RentBook from "./pages/RentBook";
+import ReturnBook from "./pages/ReturnBook";
 
 const appTheme = createTheme({
   status: {
@@ -28,7 +28,7 @@ const appTheme = createTheme({
       main: "#bc4749",
     },
     secondary: {
-      main: "#6e1b7d",
+      main: "#410f49",
     },
   },
 });
@@ -46,17 +46,17 @@ function App() {
           <Route path="/books" element={<Books api={endpoint} />} />
           <Route path="/books/new" element={<AddBook api={endpoint} />} />
           <Route path="/books/:id" element={<EditBook api={endpoint} />} />
-          <Route
-            path="/books/:id/delete"
-            element={<DeleteItem url={"books"} api={endpoint} />}
-          />
+          {/*<Route*/}
+          {/*  path="/books/:id/delete"*/}
+          {/*  element={<DeleteItem url={"books"} api={endpoint} />}*/}
+          {/*/>*/}
           <Route path="/members" element={<Members api={endpoint} />} />
           <Route path="/members/new" element={<AddMember api={endpoint} />} />
           <Route path="/members/:id" element={<EditMember api={endpoint} />} />
-          <Route
-            path="/members/:id/delete"
-            element={<EditBook api={endpoint} />}
-          />
+          {/*<Route*/}
+          {/*  path="/members/:id/delete"*/}
+          {/*  element={<EditBook api={endpoint} />}*/}
+          {/*/>*/}
           <Route
             path="/members/:id/borrow"
             element={<RentBook api={endpoint} />}
@@ -64,6 +64,7 @@ function App() {
           <Route path="/balances" element={<Members api={endpoint} />} />
           <Route path="/shelf" element={<Books api={endpoint} />} />
           <Route path="/shelf/:id" element={<EditBook api={endpoint} />} />
+          <Route path="/returns" element={<ReturnBook api={endpoint} />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

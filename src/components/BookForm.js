@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
 import { postData } from "./Utils";
+import { useNavigate } from "react-router-dom";
 
 const BookForm = ({ action, apiEndpoint }) => {
   const [title, setTitle] = useState("");
@@ -14,6 +15,7 @@ const BookForm = ({ action, apiEndpoint }) => {
   const [endpoint, setEndpoint] = useState(apiEndpoint);
   const [submitStatus, setSubmitStatus] = useState(false);
   const [responseDetails, setResponseDetails] = useState("");
+  const navigate = useNavigate();
 
   let submitMethod;
   let formTitle;
@@ -46,11 +48,13 @@ const BookForm = ({ action, apiEndpoint }) => {
         console.log(submitStatus);
       }
     });
+
+    navigate(-1);
   }
 
   return (
     <>
-      <Typography variant="h4" component="h2">
+      <Typography variant="h3" component="h2">
         {formTitle}
       </Typography>
       <form onSubmit={handleBookFormSubmit}>
