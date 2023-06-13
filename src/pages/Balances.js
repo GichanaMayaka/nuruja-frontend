@@ -32,12 +32,7 @@ function Balances({ api }) {
             loadingStatus={isLoading}
           />
         ) : (
-          <AlertRenderer
-            message={"Failed Fetch"}
-            severity={"warning"}
-            title={"Error"}
-            variant={"filled"}
-          />
+          <AlertRenderer />
         )}
       </ResponsiveDrawer>
     </Container>

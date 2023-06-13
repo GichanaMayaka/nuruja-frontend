@@ -127,7 +127,7 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
 
 export function InitiateReturnIconRenderer({ params, endpoint }) {
   const navigation = useNavigate();
-  const location = `${endpoint}/${params.row.id}/return`;
+  const location = `${endpoint}/${params.row.user_id}/return`;
   let payload;
 
   const handleInitiateReturn = () => {
@@ -135,10 +135,14 @@ export function InitiateReturnIconRenderer({ params, endpoint }) {
       book_id: params.row.book_id,
     };
 
-    postData(location, payload, "POST").then((r) => {
-      alert("Return Successful");
-      navigation(0);
-    });
+    postData(location, payload, "POST")
+      .then((r) => {
+        alert("Return Successful");
+        navigation(0);
+      })
+      .catch((error) => {
+        setRequestFailed(true);
+      });
   };
 
   return (
@@ -150,7 +154,12 @@ export function InitiateReturnIconRenderer({ params, endpoint }) {
   );
 }
 
-export function AlertRenderer({ severity, title, message, variant }) {
+export function AlertRenderer({
+  severity = "warning",
+  title = "Error",
+  message = "Connection Error",
+  variant = "filled",
+}) {
   const navigation = useNavigate();
 
   return (

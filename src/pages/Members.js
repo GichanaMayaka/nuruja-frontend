@@ -4,6 +4,7 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreMembersDataGridColumns } from "../components/Scaffold";
 import {
+  AlertRenderer,
   DeleteIconButtonRender,
   EditIconButtonRenderer,
   fetchData,
@@ -42,6 +43,7 @@ function Members({ api }) {
   const [members, setMembers] = React.useState([]);
   const [apiEndpoint, setApiEndpoint] = React.useState(`${api}members`);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
   const membersContextColumns = [
     ...coreMembersDataGridColumns,
@@ -49,30 +51,45 @@ function Members({ api }) {
   ];
 
   React.useEffect(() => {
-    fetchData(apiEndpoint).then((response) => {
-      setMembers(response.members);
-      setIsLoading(false);
-    });
+    fetchData(apiEndpoint)
+      .then((response) => {
+        setMembers(response.members);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setRequestFailed(true);
+      });
   }, []);
 
   return (
     <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
-        <DataDisplayGrid
-          data={members}
-          columns={membersContextColumns}
-          loadingStatus={isLoading}
-        />
-        <Button
-          variant="text"
-          color="secondary"
-          size="large"
-          onClick={() => {
-            navigation("new");
-          }}
-        >
-          Add a Member
-        </Button>
+        {requestFailed ? (
+          <AlertRenderer
+            message={"Connection Error"}
+            variant={"filled"}
+            severity={"warning"}
+            title={"Error"}
+          />
+        ) : (
+          <>
+            <DataDisplayGrid
+              data={members}
+              columns={membersContextColumns}
+              loadingStatus={isLoading}
+            />
+            <Button
+              variant="text"
+              color="secondary"
+              size="large"
+              onClick={() => {
+                navigation("new");
+              }}
+            >
+              Add a Member
+            </Button>
+          </>
+        )}
       </ResponsiveDrawer>
     </Container>
   );

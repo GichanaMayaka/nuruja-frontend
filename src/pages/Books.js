@@ -33,7 +33,6 @@ const additionalColumns = [
 function Books({ api }) {
   const [apiEndpoint, setApiEndpoint] = React.useState(`${api}books`);
   const [books, setBooks] = React.useState([]);
-  const [errorDetails, setErrorDetails] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(true);
   const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
@@ -57,12 +56,7 @@ function Books({ api }) {
     <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
         {requestFailed ? (
-          <AlertRenderer
-            variant={"filled"}
-            message={"Fetch Failed"}
-            severity={"warning"}
-            title={"Fetch Failed"}
-          />
+          <AlertRenderer />
         ) : (
           <>
             <DataDisplayGrid
