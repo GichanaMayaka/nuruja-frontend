@@ -2,12 +2,9 @@ import * as React from "react";
 import { DataGrid, GridCellEditStopReasons } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 
-export default function DataDisplayGrid({ data, columns, loadingStatus }) {
+function DataDisplayGrid({ data, columns, loadingStatus }) {
   return (
-    <Paper
-      sx={{ width: "100%", overflow: "overflow", marginTop: 3 }}
-      elevation={3}
-    >
+    <Paper sx={{ width: "100%", overflow: "overflow" }} elevation={3}>
       <DataGrid
         rows={data}
         columns={columns}
@@ -29,3 +26,5 @@ export default function DataDisplayGrid({ data, columns, loadingStatus }) {
     </Paper>
   );
 }
+
+export default DataDisplayGrid;

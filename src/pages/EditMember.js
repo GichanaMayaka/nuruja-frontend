@@ -4,10 +4,10 @@ import { Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 import MemberForm from "../components/MemberForm";
 
-function EditMember({ apiEndpoint }) {
+function EditMember({ api }) {
   const action = "edit";
   const { id } = useParams();
-  const path = `${apiEndpoint}members/${id}`;
+  const path = `${api}members/${id}`;
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

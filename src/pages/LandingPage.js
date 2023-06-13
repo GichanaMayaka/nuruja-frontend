@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
-export const LandingPage = () => {
+function LandingPage() {
   return (
     <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
@@ -11,4 +11,6 @@ export const LandingPage = () => {
       </ResponsiveDrawer>
     </Container>
   );
-};
+}
+
+export default LandingPage;

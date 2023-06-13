@@ -144,7 +144,11 @@ export const AppBarAndDrawer = (props) => {
               Nuruja
             </Button>
           </Typography>
-          <Search>
+          <Search
+            onChange={(e) => {
+              console.log(e.target.value);
+            }}
+          >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

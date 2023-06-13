@@ -4,7 +4,7 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import BookForm from "../components/BookForm";
 import { useParams } from "react-router-dom";
 
-export default function EditBook({ api }) {
+function EditBook({ api }) {
   const action = "edit";
   const { id } = useParams();
   const path = `${api}books/${id}`;
@@ -17,3 +17,5 @@ export default function EditBook({ api }) {
     </Container>
   );
 }
+
+export default EditBook;

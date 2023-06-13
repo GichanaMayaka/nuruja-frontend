@@ -41,6 +41,7 @@ export const coreBookDataGridColumns = [
   {
     field: "isbn",
     headerName: "ISBN",
+    sortable: true,
     editable: false,
     type: "text",
     flex: 1,
@@ -50,12 +51,14 @@ export const coreBookDataGridColumns = [
     headerName: "Title",
     type: "text",
     editable: false,
+    sortable: true,
     flex: 1,
   },
   {
     field: "author",
     headerName: "Author",
     editable: false,
+    sortable: true,
     type: "text",
     flex: 1,
   },
@@ -63,7 +66,8 @@ export const coreBookDataGridColumns = [
     field: "date_of_publication",
     headerName: "Date of Publication",
     type: "Date",
-    editable: true,
+    editable: false,
+    sortable: true,
     flex: 1,
   },
   {
@@ -88,6 +92,33 @@ export const coreBookDataGridColumns = [
     type: "number",
     sortable: true,
     editable: false,
+    flex: 1,
+  },
+];
+
+export const coreBalancesDataGridColumns = [
+  {
+    field: "username",
+    headerName: "Member",
+    sortable: true,
+    editable: false,
+    type: "text",
+    flex: 1,
+  },
+  {
+    field: "balance",
+    headerName: "Balances",
+    sortable: true,
+    editable: false,
+    type: "text",
+    flex: 1,
+  },
+  {
+    field: "date_of_entry",
+    headerName: "Date of Entry",
+    sortable: true,
+    editable: false,
+    type: "Date",
     flex: 1,
   },
 ];

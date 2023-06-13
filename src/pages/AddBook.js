@@ -3,9 +3,9 @@ import BookForm from "../components/BookForm";
 import { Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
-export default function AddBook({ api }) {
+function AddBook({ api }) {
   const action = "add";
-  const path = `${api}books/new`;
+  const path = React.useState(`${api}books/new`);
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
@@ -15,3 +15,5 @@ export default function AddBook({ api }) {
     </Container>
   );
 }
+
+export default AddBook;

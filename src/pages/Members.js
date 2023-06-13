@@ -38,7 +38,7 @@ const additionalColumns = [
   },
 ];
 
-export const Members = ({ api }) => {
+function Members({ api }) {
   const [members, setMembers] = React.useState([]);
   const [apiEndpoint, setApiEndpoint] = React.useState(`${api}members`);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -56,7 +56,7 @@ export const Members = ({ api }) => {
   }, []);
 
   return (
-    <Container>
+    <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
         <DataDisplayGrid
           data={members}
@@ -76,4 +76,6 @@ export const Members = ({ api }) => {
       </ResponsiveDrawer>
     </Container>
   );
-};
+}
+
+export default Members;

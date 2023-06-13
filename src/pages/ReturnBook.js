@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { Container } from "@mui/material";
 import { fetchData, InitiateReturnIconRenderer } from "../components/Utils";
@@ -7,14 +6,12 @@ import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/Scaffold";
 
 function ReturnBook({ api }) {
-  const { id } = useParams();
-
   const [rentedBooks, setRentedBooks] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [fetchRentedBooksEndpoint, setFetchRentedBooksEndpoint] =
     React.useState(`${api}books/unavailable`);
   const [postReturnsEndpoint, setPostReturnsEndpoint] = React.useState(
-    `${api}members/${id}/return`
+    `${api}members`
   );
   const contextColumns = [
     ...coreBookDataGridColumns,
@@ -24,7 +21,23 @@ function ReturnBook({ api }) {
       sortable: true,
       editable: false,
       type: "Date",
-      flex: 1
+      flex: 1,
+    },
+    {
+      field: "username",
+      headerName: "UserName",
+      sortable: true,
+      editable: false,
+      type: "Date",
+      flex: 1,
+    },
+    {
+      field: "date_borrowed",
+      headerName: "Date Borrowed",
+      sortable: true,
+      editable: false,
+      type: "Date",
+      flex: 1,
     },
     {
       field: "rent_icon",
@@ -48,6 +61,7 @@ function ReturnBook({ api }) {
     });
   }, []);
 
+  // TODO: Fix "Warning: Encountered two children with the same key,"
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>

@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import React from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { BookmarkAdd, BookmarkAdded } from "@mui/icons-material";
+import { BookmarkAdded } from "@mui/icons-material";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { Alert, AlertTitle } from "@mui/material";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Alert, AlertTitle } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const init = {
   mode: "cors", // no-cors, *cors, same-origin
@@ -26,6 +26,11 @@ export async function postData(url, data, method = "POST") {
     method: `${method}`,
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok.");
+  }
+
   return response.json();
 }
 
@@ -34,6 +39,11 @@ export async function fetchData(url, method = "GET") {
     ...init,
     method: `${method}`,
   });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok.");
+  }
+
   return response.json();
 }
 
@@ -79,7 +89,7 @@ export function RentToIconButtonRenderer({ params }) {
   return (
     <Tooltip title={"Rent To"} arrow>
       <IconButton
-        color="secondary"
+        color="neutral"
         size="small"
         onClick={() => {
           navigation(`${params.row.id}/borrow`);
@@ -108,7 +118,7 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
 
   return (
     <Tooltip title={"Initiate Borrow"} arrow>
-      <IconButton color="secondary" size="small" onClick={handleInitiateBorrow}>
+      <IconButton color="neutral" size="small" onClick={handleInitiateBorrow}>
         <BookmarkAddIcon />
       </IconButton>
     </Tooltip>
@@ -117,25 +127,40 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
 
 export function InitiateReturnIconRenderer({ params, endpoint }) {
   const navigation = useNavigate();
+  const location = `${endpoint}/${params.row.id}/return`;
+  let payload;
+
+  const handleInitiateReturn = () => {
+    payload = {
+      book_id: params.row.book_id,
+    };
+
+    postData(location, payload, "POST").then((r) => {
+      alert("Return Successful");
+      navigation(0);
+    });
+  };
 
   return (
-    <Tooltip title={"Initiate Borrow"} arrow>
-      <IconButton
-        color="secondary"
-        size="small"
-        onClick={() => {
-          console.log("Returning " + params.row.title);
-        }}
-      >
+    <Tooltip title={"Initiate Return"} arrow>
+      <IconButton color="secondary" size="small" onClick={handleInitiateReturn}>
         <BookmarkRemoveIcon />
       </IconButton>
     </Tooltip>
   );
 }
 
-export function AlertRenderer({ severity, title, message }) {
+export function AlertRenderer({ severity, title, message, variant }) {
+  const navigation = useNavigate();
+
   return (
-    <Alert severity={severity}>
+    <Alert
+      severity={severity}
+      variant={variant}
+      onClose={() => {
+        navigation("/");
+      }}
+    >
       <AlertTitle>{title}</AlertTitle>
       {message}
     </Alert>
