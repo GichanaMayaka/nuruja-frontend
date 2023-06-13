@@ -11,6 +11,7 @@ import LandingPage from "./pages/LandingPage";
 import Members from "./pages/Members";
 import RentBook from "./pages/RentBook";
 import ReturnBook from "./pages/ReturnBook";
+import NotFound from "./components/NotFound";
 
 const appTheme = createTheme({
   status: {
@@ -66,6 +67,8 @@ function App() {
           <Route path="/shelf" element={<Books api={endpoint} />} />
           <Route path="/shelf/:id" element={<EditBook api={endpoint} />} />
           <Route path="/returns" element={<ReturnBook api={endpoint} />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
