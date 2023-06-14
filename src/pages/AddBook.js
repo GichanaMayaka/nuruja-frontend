@@ -5,7 +5,7 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
 function AddBook({ api }) {
   const action = "add";
-  const path = React.useState(`${api}books/new`);
+  const [path] = React.useState(`${api}books/new`);
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

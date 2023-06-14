@@ -9,17 +9,12 @@ import { fetchData, InitiateRentIconButtonRenderer } from "../components/Utils";
 function RentBook({ api }) {
   const { id } = useParams();
 
-  const [bookId, setBookId] = React.useState(0);
   const [availableBooks, setAvailableBooks] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [fetchBooksEndpoint, setFetchBooksEndpoint] = React.useState(
-    `${api}books/available`
-  );
-  const [postBookEndpoint, setPostBookEndpoint] = React.useState(
-    `${api}members/${id}/borrow`
-  );
+  const [fetchBooksEndpoint] = React.useState(`${api}books/available`);
+  const [postBookEndpoint] = React.useState(`${api}members/${id}/borrow`);
+  const navigation = useNavigate();
 
-  const [errorDetails, setErrorDetails] = React.useState("");
   const contextColumns = [
     ...coreBookDataGridColumns,
     {
@@ -38,10 +33,16 @@ function RentBook({ api }) {
   ];
 
   React.useEffect(() => {
-    fetchData(fetchBooksEndpoint).then((r) => {
-      setAvailableBooks(r.books);
-      setIsLoading(false);
-    });
+    fetchData(fetchBooksEndpoint)
+      .then((r) => {
+        setAvailableBooks(r.books);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (error.status === 404) {
+          navigation("/404");
+        }
+      });
   }, []);
 
   return (

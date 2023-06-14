@@ -12,7 +12,7 @@ function MemberForm({ action, apiEndpoint }) {
   const [address, setAddress] = React.useState("");
   const [endpoint] = React.useState(apiEndpoint);
   const [requestFailed, setRequestFailed] = React.useState(false);
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   let submitMethod;
   let formTitle;
@@ -30,7 +30,11 @@ function MemberForm({ action, apiEndpoint }) {
           setAddress(r.address);
         })
         .catch((error) => {
-          setRequestFailed(true);
+          if (error.status === 404) {
+            navigation("/404");
+          } else {
+            setRequestFailed(true);
+          }
         });
     }, []);
   } else {
@@ -56,7 +60,7 @@ function MemberForm({ action, apiEndpoint }) {
         setRequestFailed(true);
       });
 
-    navigate(-1);
+    navigation("/members");
   }
 
   return (

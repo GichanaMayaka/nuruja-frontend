@@ -28,7 +28,7 @@ export async function postData(url, data, method = "POST") {
   });
 
   if (!response.ok) {
-    throw new Error("Network response was not ok.");
+    throw response;
   }
 
   return response.json();
@@ -41,7 +41,7 @@ export async function fetchData(url, method = "GET") {
   });
 
   if (!response.ok) {
-    throw new Error("Network response was not ok.");
+    throw response;
   }
 
   return response.json();
@@ -65,18 +65,22 @@ export function EditIconButtonRenderer({ params }) {
   );
 }
 
-export function DeleteIconButtonRender({ params }) {
+export function DeleteIconButtonRender({ params, endpoint }) {
+  const itemId = params.row.id;
+  const [api] = React.useState(`${endpoint}/${itemId}/delete`);
   const navigation = useNavigate();
+
+  const handleDelete = () => {
+    postData(api, {}, "DELETE")
+      .then((r) => navigation("/"))
+      .catch((error) => {
+        console.log(error.status);
+      });
+  };
 
   return (
     <Tooltip title={"Delete"} arrow>
-      <IconButton
-        color="warning"
-        size="small"
-        onClick={() => {
-          navigation(-1);
-        }}
-      >
+      <IconButton color="warning" size="small" onClick={handleDelete}>
         <DeleteIcon />
       </IconButton>
     </Tooltip>
@@ -112,7 +116,7 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
 
     postData(endpoint, payload, "POST").then((r) => {
       alert("Borrow Successful");
-      navigation(0);
+      navigation("/members");
     });
   };
 
@@ -141,7 +145,9 @@ export function InitiateReturnIconRenderer({ params, endpoint }) {
         navigation(0);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        }
       });
   };
 

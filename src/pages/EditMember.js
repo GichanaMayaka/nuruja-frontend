@@ -7,7 +7,7 @@ import MemberForm from "../components/MemberForm";
 function EditMember({ api }) {
   const action = "edit";
   const { id } = useParams();
-  const path = `${api}members/${id}`;
+  const [path] = React.useState(`${api}members/${id}`);
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

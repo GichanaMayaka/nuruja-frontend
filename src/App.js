@@ -45,13 +45,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+
           <Route path="/books" element={<Books api={endpoint} />} />
           <Route path="/books/new" element={<AddBook api={endpoint} />} />
           <Route path="/books/:id" element={<EditBook api={endpoint} />} />
-          {/*<Route*/}
-          {/*  path="/books/:id/delete"*/}
-          {/*  element={<DeleteItem url={"books"} api={endpoint} />}*/}
-          {/*/>*/}
+
           <Route path="/members" element={<Members api={endpoint} />} />
           <Route path="/members/new" element={<AddMember api={endpoint} />} />
           <Route path="/members/:id" element={<EditMember api={endpoint} />} />
@@ -59,14 +57,13 @@ function App() {
             path="/members/:id/borrow"
             element={<RentBook api={endpoint} />}
           />
-          {/*<Route*/}
-          {/*  path="/members/:id/delete"*/}
-          {/*  element={<EditBook api={endpoint} />}*/}
-          {/*/>*/}
+
           <Route path="/balances" element={<Balances api={endpoint} />} />
-          <Route path="/shelf" element={<Books api={endpoint} />} />
-          <Route path="/shelf/:id" element={<EditBook api={endpoint} />} />
+
           <Route path="/returns" element={<ReturnBook api={endpoint} />} />
+
+          <Route path="/shelf" element={<Books api={endpoint} />} />
+
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

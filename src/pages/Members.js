@@ -12,42 +12,41 @@ import {
 } from "../components/Utils";
 import { useNavigate } from "react-router-dom";
 
-const additionalColumns = [
-  {
-    field: "edit_icon",
-    headerName: "",
-    renderCell: (params) => <EditIconButtonRenderer params={params} />,
-    sortable: false,
-    editable: false,
-    width: 30,
-  },
-  {
-    field: "rent_icon",
-    headerName: "",
-    renderCell: (params) => <RentToIconButtonRenderer params={params} />,
-    sortable: false,
-    editable: false,
-    width: 30,
-  },
-  {
-    field: "delete_icon",
-    headerName: "",
-    renderCell: (params) => <DeleteIconButtonRender params={params} />,
-    sortable: false,
-    editable: false,
-    width: 30,
-  },
-];
-
 function Members({ api }) {
   const [members, setMembers] = React.useState([]);
-  const [apiEndpoint, setApiEndpoint] = React.useState(`${api}members`);
+  const [apiEndpoint] = React.useState(`${api}members`);
   const [isLoading, setIsLoading] = React.useState(true);
   const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
+
   const membersContextColumns = [
     ...coreMembersDataGridColumns,
-    ...additionalColumns,
+    {
+      field: "edit_icon",
+      headerName: "",
+      renderCell: (params) => <EditIconButtonRenderer params={params} />,
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
+    {
+      field: "rent_icon",
+      headerName: "",
+      renderCell: (params) => <RentToIconButtonRenderer params={params} />,
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
+    {
+      field: "delete_icon",
+      headerName: "",
+      renderCell: (params) => (
+        <DeleteIconButtonRender params={params} endpoint={apiEndpoint} />
+      ),
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
   ];
 
   React.useEffect(() => {
@@ -57,7 +56,11 @@ function Members({ api }) {
         setIsLoading(false);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        } else {
+          setRequestFailed(true);
+        }
       });
   }, []);
 

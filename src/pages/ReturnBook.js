@@ -8,6 +8,7 @@ import {
 } from "../components/Utils";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/Scaffold";
+import { useNavigate } from "react-router-dom";
 
 function ReturnBook({ api }) {
   const [rentedBooks, setRentedBooks] = React.useState([]);
@@ -15,10 +16,11 @@ function ReturnBook({ api }) {
   const [fetchRentedBooksEndpoint] = React.useState(`${api}books/unavailable`);
   const [postReturnsEndpoint] = React.useState(`${api}members`);
   const [requestFailed, setRequestFailed] = React.useState(false);
+  const navigation = useNavigate();
   const contextColumns = [
     {
       field: "username",
-      headerName: "UserName",
+      headerName: "Name",
       sortable: true,
       editable: false,
       type: "Date",
@@ -63,7 +65,11 @@ function ReturnBook({ api }) {
         setIsLoading(false);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        } else {
+          setRequestFailed(true);
+        }
       });
   }, []);
 

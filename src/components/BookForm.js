@@ -64,13 +64,12 @@ const BookForm = ({ action, apiEndpoint }) => {
     postData(endpoint, payload, submitMethod)
       .then((r) => {
         setSubmitStatus(true);
-        console.log(submitStatus);
       })
       .catch((error) => {
         setRequestFailed(true);
       });
 
-    navigate(-1);
+    navigate("/books");
   }
 
   return (

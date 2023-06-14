@@ -5,7 +5,7 @@ import MemberForm from "../components/MemberForm";
 
 function AddMember({ api }) {
   const action = "add";
-  const path = `${api}members/new`;
+  const [path] = React.useState(`${api}members/new`);
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>

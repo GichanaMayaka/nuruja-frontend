@@ -11,34 +11,33 @@ import {
 } from "../components/Utils";
 import { useNavigate } from "react-router-dom";
 
-const additionalColumns = [
-  {
-    field: "edit_icon",
-    headerName: "",
-    renderCell: (params) => <EditIconButtonRenderer params={params} />,
-    sortable: false,
-    editable: false,
-    width: 30,
-  },
-  {
-    field: "delete_icon",
-    headerName: "",
-    renderCell: (params) => <DeleteIconButtonRender params={params} />,
-    sortable: false,
-    editable: false,
-    width: 30,
-  },
-];
-
 function Books({ api }) {
-  const [apiEndpoint, setApiEndpoint] = React.useState(`${api}books`);
+  const [apiEndpoint] = React.useState(`${api}books`);
   const [books, setBooks] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
+
   const booksContextColumns = [
     ...coreBookDataGridColumns,
-    ...additionalColumns,
+    {
+      field: "edit_icon",
+      headerName: "",
+      renderCell: (params) => <EditIconButtonRenderer params={params} />,
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
+    {
+      field: "delete_icon",
+      headerName: "",
+      renderCell: (params) => (
+        <DeleteIconButtonRender params={params} endpoint={apiEndpoint} />
+      ),
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
   ];
 
   React.useEffect(() => {
@@ -48,7 +47,11 @@ function Books({ api }) {
         setIsLoading(false);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        } else {
+          setRequestFailed(true);
+        }
       });
   }, []);
 

@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 function EditBook({ api }) {
   const action = "edit";
   const { id } = useParams();
-  const path = `${api}books/${id}`;
+  const [path] = React.useState(`${api}books/${id}`);
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
