@@ -11,6 +11,7 @@ import {
   RentToIconButtonRenderer,
 } from "../components/Utils";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 function Members({ api }) {
   const [members, setMembers] = React.useState([]);
@@ -76,6 +77,9 @@ function Members({ api }) {
           />
         ) : (
           <>
+            <Typography variant="h6" mb={1}>
+              Members
+            </Typography>
             <DataDisplayGrid
               data={members}
               columns={membersContextColumns}

@@ -5,6 +5,7 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { coreBalancesDataGridColumns } from "../components/Scaffold";
 import { AlertRenderer, fetchData } from "../components/Utils";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 function Balances({ api }) {
   const [endpoint] = React.useState(`${api}balances/all`);
@@ -32,11 +33,16 @@ function Balances({ api }) {
     <Container sx={{ display: "flex", marginTop: 3 }}>
       <ResponsiveDrawer>
         {!requestFailed ? (
-          <DataDisplayGrid
-            columns={coreBalancesDataGridColumns}
-            data={balances}
-            loadingStatus={isLoading}
-          />
+          <>
+            <Typography variant="h6" mb={1}>
+              Balances
+            </Typography>
+            <DataDisplayGrid
+              columns={coreBalancesDataGridColumns}
+              data={balances}
+              loadingStatus={isLoading}
+            />
+          </>
         ) : (
           <AlertRenderer />
         )}

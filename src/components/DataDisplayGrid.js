@@ -1,5 +1,9 @@
 import * as React from "react";
-import { DataGrid, GridCellEditStopReasons } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridCellEditStopReasons,
+  GridToolbar,
+} from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 
 function DataDisplayGrid({ data, columns, loadingStatus }) {
@@ -9,6 +13,8 @@ function DataDisplayGrid({ data, columns, loadingStatus }) {
         rows={data}
         columns={columns}
         editMode="row"
+        density={"comfortable"}
+        slots={{ toolbar: GridToolbar }}
         onCellEditStop={(params, event) => {
           if (params.reason === GridCellEditStopReasons.cellFocusOut) {
             event.defaultMuiPrevented = true;

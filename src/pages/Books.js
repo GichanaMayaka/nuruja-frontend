@@ -10,6 +10,7 @@ import {
   fetchData,
 } from "../components/Utils";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 function Books({ api }) {
   const [apiEndpoint] = React.useState(`${api}books`);
@@ -62,6 +63,9 @@ function Books({ api }) {
           <AlertRenderer />
         ) : (
           <>
+            <Typography variant="h6" mb={1}>
+              Books
+            </Typography>
             <DataDisplayGrid
               data={books}
               columns={booksContextColumns}

@@ -145,8 +145,10 @@ export const AppBarAndDrawer = (props) => {
             </Button>
           </Typography>
           <Search
-            onChange={(e) => {
-              console.log(e.target.value);
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                console.log(e.target.value);
+              }
             }}
           >
             <SearchIconWrapper>

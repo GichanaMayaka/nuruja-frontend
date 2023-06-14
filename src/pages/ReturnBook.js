@@ -9,6 +9,7 @@ import {
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/Scaffold";
 import { useNavigate } from "react-router-dom";
+import Typography from "@mui/material/Typography";
 
 function ReturnBook({ api }) {
   const [rentedBooks, setRentedBooks] = React.useState([]);
@@ -79,11 +80,16 @@ function ReturnBook({ api }) {
         {requestFailed ? (
           <AlertRenderer />
         ) : (
-          <DataDisplayGrid
-            data={rentedBooks}
-            columns={contextColumns}
-            loadingStatus={isLoading}
-          />
+          <>
+            <Typography variant="h6" mb={1}>
+              Returns
+            </Typography>
+            <DataDisplayGrid
+              data={rentedBooks}
+              columns={contextColumns}
+              loadingStatus={isLoading}
+            />
+          </>
         )}
       </ResponsiveDrawer>
     </Container>

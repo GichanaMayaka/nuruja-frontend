@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/Scaffold";
 import { fetchData, InitiateRentIconButtonRenderer } from "../components/Utils";
+import Typography from "@mui/material/Typography";
 
 function RentBook({ api }) {
   const { id } = useParams();
@@ -48,6 +49,9 @@ function RentBook({ api }) {
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
+        <Typography variant="h6" mb={1}>
+          Borrowing
+        </Typography>
         <DataDisplayGrid
           columns={contextColumns}
           data={availableBooks}

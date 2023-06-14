@@ -65,7 +65,7 @@ function MemberForm({ action, apiEndpoint }) {
 
   return (
     <Box component="form" autoComplete="off" onSubmit={handleMemberFormSubmit}>
-      <Typography variant="h4" component="h2">
+      <Typography variant="h6" mb={1}>
         {formTitle}
       </Typography>
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>

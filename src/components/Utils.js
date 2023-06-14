@@ -14,7 +14,6 @@ const init = {
   credentials: "same-origin",
   headers: {
     "Content-Type": "application/json",
-    Origin: "http://localhost:3000",
   },
   redirect: "follow",
   referrerPolicy: "no-referrer",
