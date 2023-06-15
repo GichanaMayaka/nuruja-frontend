@@ -2,8 +2,8 @@ import { Container } from "@mui/material";
 import React from "react";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
-import { coreBalancesDataGridColumns } from "../components/Scaffold";
-import { AlertRenderer, fetchData } from "../components/Utils";
+import { coreBalancesDataGridColumns } from "../components/scaffold";
+import { AlertRenderer, fetchData } from "../components/utils";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 

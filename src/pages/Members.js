@@ -2,14 +2,14 @@ import React from "react";
 import { Button, Container } from "@mui/material";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import { coreMembersDataGridColumns } from "../components/Scaffold";
+import { coreMembersDataGridColumns } from "../components/scaffold";
 import {
   AlertRenderer,
   DeleteIconButtonRender,
   EditIconButtonRenderer,
   fetchData,
   RentToIconButtonRenderer,
-} from "../components/Utils";
+} from "../components/utils";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 

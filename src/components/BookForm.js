@@ -1,21 +1,25 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Button, Stack, TextField } from "@mui/material";
-import { fetchData, postData } from "./Utils";
+import { Button, MenuItem, Stack, TextField } from "@mui/material";
+import { fetchData, postData } from "./utils";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { bookSchema } from "./validationSchemas";
 
 const BookForm = ({ action, apiEndpoint }) => {
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [dateOfPublication, setDateOfPublication] = React.useState("");
-  const [isbn, setIsbn] = React.useState("");
+  const [isbn, setIsbn] = React.useState(0);
   const [rentFee, setRentFee] = React.useState(1000);
   const [rentStatus, setRentStatus] = React.useState("not-rented");
   const [latePenaltyFee, setLatePenaltyFee] = React.useState(250);
   const [endpoint, setEndpoint] = React.useState(apiEndpoint);
   const [submitStatus, setSubmitStatus] = React.useState(false);
   const [requestFailed, setRequestFailed] = React.useState(false);
+
   const navigate = useNavigate();
 
   let submitMethod;
@@ -49,8 +53,6 @@ const BookForm = ({ action, apiEndpoint }) => {
   }
 
   function handleBookFormSubmit(event) {
-    event.preventDefault();
-
     const payload = {
       title: title,
       author: author,
@@ -72,14 +74,26 @@ const BookForm = ({ action, apiEndpoint }) => {
     navigate("/books");
   }
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitSuccessful },
+    reset,
+  } = useForm({ resolver: zodResolver(bookSchema) });
+
+  React.useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+
   return (
     <Box
       component="form"
-      noValidate
       autoComplete="off"
-      onSubmit={handleBookFormSubmit}
+      onSubmit={handleSubmit(handleBookFormSubmit)}
     >
-      <Typography variant="h3" component="h2">
+      <Typography variant="h6" mb={1}>
         {formTitle}
       </Typography>
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
@@ -88,55 +102,81 @@ const BookForm = ({ action, apiEndpoint }) => {
           variant="outlined"
           color="secondary"
           label="Title"
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
           fullWidth
-          required
+          value={title}
+          {...register("title", {
+            onChange: (e) => setTitle(e.target.value),
+          })}
+          error={!!errors.title}
+          helperText={errors.title?.message}
         />
         <TextField
           type="text"
           variant="outlined"
           color="secondary"
           label="Author"
-          onChange={(e) => setAuthor(e.target.value)}
-          value={author}
           fullWidth
-          required
+          value={author}
+          {...register("author", {
+            onChange: (e) => setAuthor(e.target.value),
+          })}
+          error={!!errors.author}
+          helperText={errors.author?.message}
         />
         <TextField
-          type="text"
+          type="number"
           variant="outlined"
           color="secondary"
           label="ISBN"
-          onChange={(e) => setIsbn(e.target.value)}
-          value={isbn}
           fullWidth
-          required
           sx={{ mb: 4 }}
+          value={isbn}
+          {...register("isbn", {
+            valueAsNumber: true,
+            onChange: (e) => setIsbn(e.target.value),
+          })}
+          error={!!errors.isbn}
+          helperText={errors.isbn?.message}
         />
         <TextField
-          type="bool"
+          select
+          fullWidth
           variant="outlined"
           color="secondary"
           label="Rent Status"
-          onChange={(e) => setRentStatus(e.target.value)}
-          value={rentStatus}
-          fullWidth
-          required
-          disabled
+          defaultValue="not-rented"
           sx={{ mb: 4 }}
-        />
+          {...register("rentStatus", {
+            onChange: (e) => setRentStatus(e.target.value),
+            required: "Rent Status is Required",
+          })}
+          error={!!errors.rentStatus}
+          helperText={errors.rentStatus?.message}
+        >
+          {[
+            { value: "not-rented", label: "Not Rented" },
+            { value: "rented", label: "Rented" },
+          ].map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </Stack>
       <TextField
         type="date"
         variant="outlined"
         color="secondary"
         label="Date of Publication"
-        onChange={(e) => setDateOfPublication(e.target.value)}
-        value={dateOfPublication}
         fullWidth
-        required
         sx={{ mb: 4 }}
+        value={dateOfPublication}
+        {...register("dateOfPublication", {
+          valueAsDate: true,
+          onChange: (e) => setDateOfPublication(e.target.value),
+        })}
+        error={!!errors.dateOfPublication}
+        helperText={errors.dateOfPublication?.message}
       />
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
         <TextField
@@ -144,22 +184,30 @@ const BookForm = ({ action, apiEndpoint }) => {
           variant="outlined"
           color="secondary"
           label="Rent Fee"
-          onChange={(e) => setRentFee(e.target.value)}
-          value={rentFee}
-          required
           fullWidth
           sx={{ mb: 4 }}
+          value={rentFee}
+          {...register("rentFee", {
+            valueAsNumber: true,
+            onChange: (e) => setRentFee(e.target.value),
+          })}
+          error={!!errors.rentFee}
+          helperText={errors.rentFee?.message}
         />
         <TextField
           type="number"
           variant="outlined"
           color="secondary"
           label="Late Penalty Fee"
-          onChange={(e) => setLatePenaltyFee(e.target.value)}
-          value={latePenaltyFee}
-          required
           fullWidth
           sx={{ mb: 4 }}
+          value={latePenaltyFee}
+          {...register("latePenaltyFee", {
+            valueAsNumber: true,
+            onChange: (e) => setLatePenaltyFee(e.target.value),
+          })}
+          error={!!errors.latePenaltyFee}
+          helperText={errors.latePenaltyFee?.message}
         />
       </Stack>
       <Button variant="outlined" color="secondary" type="submit">

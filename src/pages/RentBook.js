@@ -3,8 +3,8 @@ import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { Container } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import { coreBookDataGridColumns } from "../components/Scaffold";
-import { fetchData, InitiateRentIconButtonRenderer } from "../components/Utils";
+import { coreBookDataGridColumns } from "../components/scaffold";
+import { fetchData, InitiateRentIconButtonRenderer } from "../components/utils";
 import Typography from "@mui/material/Typography";
 
 function RentBook({ api }) {

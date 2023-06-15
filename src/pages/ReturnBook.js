@@ -5,9 +5,9 @@ import {
   AlertRenderer,
   fetchData,
   InitiateReturnIconRenderer,
-} from "../components/Utils";
+} from "../components/utils";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import { coreBookDataGridColumns } from "../components/Scaffold";
+import { coreBookDataGridColumns } from "../components/scaffold";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 

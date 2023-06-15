@@ -1,9 +1,12 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
-import { fetchData, postData } from "./Utils";
+import { fetchData, postData } from "./utils";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { membersSchema } from "./validationSchemas";
 
 function MemberForm({ action, apiEndpoint }) {
   const [username, setUsername] = React.useState("");
@@ -42,9 +45,15 @@ function MemberForm({ action, apiEndpoint }) {
     formTitle = "Add a Member";
   }
 
-  function handleMemberFormSubmit(event) {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(membersSchema),
+  });
 
+  function handleMemberFormSubmit(formValues) {
     const payload = {
       username: username,
       email: email,
@@ -64,7 +73,12 @@ function MemberForm({ action, apiEndpoint }) {
   }
 
   return (
-    <Box component="form" autoComplete="off" onSubmit={handleMemberFormSubmit}>
+    <Box
+      component="form"
+      autoComplete="off"
+      onSubmit={handleSubmit(handleMemberFormSubmit)}
+      noValidate
+    >
       <Typography variant="h6" mb={1}>
         {formTitle}
       </Typography>
@@ -73,43 +87,56 @@ function MemberForm({ action, apiEndpoint }) {
           type="text"
           variant="outlined"
           color="secondary"
-          label="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          label="Name"
           value={username}
           fullWidth
-          required
+          {...register("username", {
+            onChange: (e) => setUsername(e.target.value),
+          })}
+          error={!!errors.username}
+          helperText={errors.username?.message}
         />
         <TextField
           type="text"
           variant="outlined"
           color="secondary"
           label="Email"
-          onChange={(e) => setEmail(e.target.value)}
           value={email}
           fullWidth
-          required
+          {...register("email", {
+            onChange: (e) => setEmail(e.target.value),
+          })}
+          error={!!errors.email}
+          helperText={errors.email?.message}
         />
         <TextField
-          type="text"
+          type="number"
           variant="outlined"
           color="secondary"
           label="Phone Number"
-          onChange={(e) => setPhoneNumber(e.target.value)}
           value={phoneNumber}
           fullWidth
-          required
           sx={{ mb: 4 }}
+          {...register("phoneNumber", {
+            valueAsNumber: true,
+            onChange: (e) => setPhoneNumber(e.target.value),
+          })}
+          error={!!errors.phoneNumber}
+          helperText={errors.phoneNumber?.message}
         />
         <TextField
           type="text"
           variant="outlined"
           color="secondary"
           label="Address"
-          onChange={(e) => setAddress(e.target.value)}
           value={address}
           fullWidth
-          required
           sx={{ mb: 4 }}
+          {...register("address", {
+            onChange: (e) => setAddress(e.target.value),
+          })}
+          error={!!errors.address}
+          helperText={errors.address?.message}
         />
       </Stack>
       <Button variant="outlined" color="secondary" type="submit">

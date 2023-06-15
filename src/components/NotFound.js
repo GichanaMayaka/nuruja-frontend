@@ -1,7 +1,7 @@
 import React from "react";
 import ResponsiveDrawer from "./ResponsiveDrawer";
 import { Button, Container } from "@mui/material";
-import { AlertRenderer } from "./Utils";
+import { AlertRenderer } from "./utils";
 import { Link } from "react-router-dom";
 
 function NotFound() {
