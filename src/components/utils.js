@@ -10,8 +10,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const init = {
-  mode: "cors", // no-cors, *cors, same-origin
-  credentials: "same-origin",
+  mode: "cors",
   headers: {
     "Content-Type": "application/json",
   },

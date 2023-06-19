@@ -14,10 +14,10 @@ function NotFound() {
           severity={"info"}
           variant={"outlined"}
         />
-        <Button size="large" variant="text" color="primary">
+        <Button size="large" variant="filled" color="primary">
           <Link to={"/members/new"}>Add a new Member</Link>
         </Button>
-        <Button size="large" variant="text" color="primary">
+        <Button size="large" variant="filled" color="primary">
           <Link to={"/books/new"}>Add a new Book</Link>
         </Button>
       </ResponsiveDrawer>

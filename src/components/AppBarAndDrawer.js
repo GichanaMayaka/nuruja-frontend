@@ -1,4 +1,5 @@
 import BookIcon from "@mui/icons-material/Book";
+import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import MenuIcon from "@mui/icons-material/Menu";
 import PaymentsIcon from "@mui/icons-material/Payments";
@@ -20,13 +21,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { MenuItemsNuruja } from "./scaffold";
-import { Link } from "react-router-dom";
-import LibraryAddCheckIcon from "@mui/icons-material/LibraryAddCheck";
+import { postData } from "./utils";
 
 export const AppBarAndDrawer = (props) => {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const navigation = useNavigate();
 
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -147,7 +149,20 @@ export const AppBarAndDrawer = (props) => {
           <Search
             onKeyDown={(e) => {
               if (e.key === "Enter") {
-                console.log(e.target.value);
+                const endpoint = new URL(process.env.REACT_APP_API_ENDPOINT);
+                postData(
+                  `${endpoint}filter`,
+                  { parameters: e.target.value },
+                  "POST"
+                )
+                  .then((r) => {
+                    navigation("/search", {
+                      state: { books: r.books, searchParam: e.target.value },
+                    });
+                  })
+                  .catch((error) => {
+                    if (error.status === 404) navigation("/404");
+                  });
               }
             }}
           >
