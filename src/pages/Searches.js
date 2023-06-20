@@ -10,10 +10,8 @@ function Searches() {
   const searchResults = location.state.books;
   const searchParam = location.state.searchParam;
 
-  console.log(searchParam);
-
   return (
-    <Container sx={{ display: "flex", marginTop: 3 }}>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         <Typography variant="h6" mb={1}>
           Showing Results for ..."{searchParam}"

@@ -4,17 +4,17 @@ import * as React from "react";
 import { AppBarAndDrawer } from "./AppBarAndDrawer";
 import { Container } from "@mui/material";
 
-const drawerWidth = 240;
+const drawerWidth = 190;
 
 function ResponsiveDrawer({ children }) {
   return (
-    <Container sx={{ display: "inline-block" }}>
+    <>
       <AppBarAndDrawer drawerWidth={drawerWidth} />
       <Box>
         <Toolbar />
         {children}
       </Box>
-    </Container>
+    </>
   );
 }
 

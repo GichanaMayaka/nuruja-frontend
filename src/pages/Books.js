@@ -57,12 +57,12 @@ function Books({ api }) {
   }, []);
 
   return (
-    <Container sx={{ display: "flex", marginTop: 3 }}>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         {requestFailed ? (
           <AlertRenderer />
         ) : (
-          <>
+          <div>
             <Typography variant="h6" mb={1}>
               Books
             </Typography>
@@ -81,7 +81,7 @@ function Books({ api }) {
             >
               Add a Book
             </Button>{" "}
-          </>
+          </div>
         )}
       </ResponsiveDrawer>
     </Container>

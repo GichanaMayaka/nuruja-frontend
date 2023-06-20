@@ -20,7 +20,7 @@ const BookForm = ({ action, apiEndpoint }) => {
   const [submitStatus, setSubmitStatus] = React.useState(false);
   const [requestFailed, setRequestFailed] = React.useState(false);
 
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   let submitMethod;
   let formTitle;
@@ -52,7 +52,7 @@ const BookForm = ({ action, apiEndpoint }) => {
     formTitle = "Add a Book";
   }
 
-  function handleBookFormSubmit(event) {
+  function handleBookFormSubmit(formValues) {
     const payload = {
       title: title,
       author: author,
@@ -68,30 +68,26 @@ const BookForm = ({ action, apiEndpoint }) => {
         setSubmitStatus(true);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        }
       });
 
-    navigate("/books");
+    navigation("/books");
   }
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    reset,
+    formState: { errors },
   } = useForm({ resolver: zodResolver(bookSchema) });
-
-  React.useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
 
   return (
     <Box
       component="form"
       autoComplete="off"
       onSubmit={handleSubmit(handleBookFormSubmit)}
+      noValidate
     >
       <Typography variant="h6" mb={1}>
         {formTitle}
@@ -169,6 +165,7 @@ const BookForm = ({ action, apiEndpoint }) => {
         color="secondary"
         label="Date of Publication"
         fullWidth
+        focused
         sx={{ mb: 4 }}
         value={dateOfPublication}
         {...register("dateOfPublication", {

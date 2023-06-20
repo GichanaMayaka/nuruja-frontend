@@ -115,6 +115,7 @@ export const AppBarAndDrawer = (props) => {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
   return (
     <>
       <AppBar

@@ -1,4 +1,4 @@
-import { BookmarkAdded } from "@mui/icons-material";
+import { BookmarkAdded, MoneyOff } from "@mui/icons-material";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -91,7 +91,7 @@ export function RentToIconButtonRenderer({ params }) {
   return (
     <Tooltip title={"Rent To"} arrow>
       <IconButton
-        color="neutral"
+        color="primary"
         size="small"
         onClick={() => {
           navigation(`${params.row.id}/borrow`);
@@ -112,10 +112,19 @@ export function InitiateRentIconButtonRenderer({ params, endpoint }) {
       book_id: params.row.id,
     };
 
-    postData(endpoint, payload, "POST").then((r) => {
-      alert("Borrow Successful");
-      navigation("/members");
-    });
+    postData(endpoint, payload, "POST")
+      .then((r) => {
+        alert("Borrow Successful");
+        navigation("/members");
+      })
+      .catch((error) => {
+        if (error.status === 406) {
+          alert(
+            "Cannot Borrow. Member's balance will be beyond cut-off of Kshs. 500"
+          );
+          navigation("/balances");
+        }
+      });
   };
 
   return (
@@ -151,7 +160,7 @@ export function InitiateReturnIconRenderer({ params, endpoint }) {
 
   return (
     <Tooltip title={"Initiate Return"} arrow>
-      <IconButton color="secondary" size="small" onClick={handleInitiateReturn}>
+      <IconButton color="neutral" size="small" onClick={handleInitiateReturn}>
         <BookmarkRemoveIcon />
       </IconButton>
     </Tooltip>
@@ -177,5 +186,43 @@ export function AlertRenderer({
       <AlertTitle>{title}</AlertTitle>
       {message}
     </Alert>
+  );
+}
+
+export function ClearUserBalanceIconRenderer({ params, endpoint }) {
+  const navigation = useNavigate();
+  const location = `${endpoint}balances/clear`;
+
+  const handleClearUserBalance = () => {
+    const payload = {
+      user_id: params.row.user_id,
+    };
+
+    postData(location, payload, "POST")
+      .then((r) => {
+        alert("Balance Cleared");
+        navigation(0);
+      })
+      .catch((error) => {
+        if (error.status === 404) {
+          navigation("/404");
+        }
+      });
+  };
+
+  return (
+    <>
+      {params.row.balance ? (
+        <Tooltip title={"Clear Balance"} arrow>
+          <IconButton
+            color="primary"
+            size="small"
+            onClick={handleClearUserBalance}
+          >
+            <MoneyOff />
+          </IconButton>
+        </Tooltip>
+      ) : null}
+    </>
   );
 }

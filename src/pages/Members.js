@@ -66,7 +66,7 @@ function Members({ api }) {
   }, []);
 
   return (
-    <Container sx={{ display: "flex", marginTop: 3 }}>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         {requestFailed ? (
           <AlertRenderer

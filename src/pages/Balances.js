@@ -1,11 +1,15 @@
 import { Container } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { coreBalancesDataGridColumns } from "../components/scaffold";
-import { AlertRenderer, fetchData } from "../components/utils";
-import { useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
+import {
+  AlertRenderer,
+  ClearUserBalanceIconRenderer,
+  fetchData
+} from "../components/utils";
 
 function Balances({ api }) {
   const [endpoint] = React.useState(`${api}balances/all`);
@@ -13,6 +17,20 @@ function Balances({ api }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
+
+  const contextColumns = [
+    ...coreBalancesDataGridColumns,
+    {
+      field: "clear_balance_icon",
+      headerName: "",
+      renderCell: (params) => (
+        <ClearUserBalanceIconRenderer params={params} endpoint={api} />
+      ),
+      sortable: false,
+      editable: false,
+      width: 30,
+    },
+  ];
 
   React.useEffect(() => {
     fetchData(endpoint, "GET")
@@ -30,7 +48,7 @@ function Balances({ api }) {
   }, []);
 
   return (
-    <Container sx={{ display: "flex", marginTop: 3 }}>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         {!requestFailed ? (
           <>
@@ -38,7 +56,7 @@ function Balances({ api }) {
               Balances
             </Typography>
             <DataDisplayGrid
-              columns={coreBalancesDataGridColumns}
+              columns={contextColumns}
               data={balances}
               loadingStatus={isLoading}
             />

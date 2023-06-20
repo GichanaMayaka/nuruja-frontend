@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFound from "./components/NotFound";
 import AddBook from "./pages/AddBook";
 import AddMember from "./pages/AddMember";
 import Balances from "./pages/Balances";
@@ -11,7 +12,6 @@ import LandingPage from "./pages/LandingPage";
 import Members from "./pages/Members";
 import RentBook from "./pages/RentBook";
 import ReturnBook from "./pages/ReturnBook";
-import NotFound from "./components/NotFound";
 import Searches from "./pages/Searches";
 
 const appTheme = createTheme({

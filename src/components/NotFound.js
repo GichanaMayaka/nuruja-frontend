@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function NotFound() {
   return (
-    <Container sx={{ display: "flex", marginTop: 3 }}>
+    <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         <AlertRenderer
           title={"404: Not Found"}

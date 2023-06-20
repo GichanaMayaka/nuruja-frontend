@@ -66,7 +66,9 @@ function MemberForm({ action, apiEndpoint }) {
         console.log(r.details);
       })
       .catch((error) => {
-        setRequestFailed(true);
+        if (error.status === 404) {
+          navigation("/404");
+        }
       });
 
     navigation("/members");
