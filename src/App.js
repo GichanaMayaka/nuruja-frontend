@@ -63,8 +63,6 @@ function App() {
 
           <Route path="/returns" element={<ReturnBook api={endpoint} />} />
 
-          <Route path="/shelf" element={<Books api={endpoint} />} />
-
           <Route path="/search" element={<Searches />} />
 
           <Route path="/404" element={<NotFound />} />

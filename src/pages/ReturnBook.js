@@ -82,7 +82,7 @@ function ReturnBook({ api }) {
         ) : (
           <>
             <Typography variant="h6" mb={1}>
-              Returns
+              Pending Returns
             </Typography>
             <DataDisplayGrid
               data={rentedBooks}

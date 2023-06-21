@@ -3,7 +3,6 @@ export const MenuItemsNuruja = [
   "Members",
   "Returns",
   "Balances",
-  "Shelf",
 ];
 
 export const coreMembersDataGridColumns = [
