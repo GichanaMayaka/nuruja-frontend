@@ -1,7 +1,7 @@
 import React from "react";
 import ResponsiveDrawer from "../components/ResponsiveDrawer";
 import { Container } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/scaffold";
 import { fetchData, InitiateRentIconButtonRenderer } from "../components/utils";
@@ -15,6 +15,7 @@ function RentBook({ api }) {
   const [fetchBooksEndpoint] = React.useState(`${api}books/available`);
   const [postBookEndpoint] = React.useState(`${api}members/${id}/borrow`);
   const navigation = useNavigate();
+  const location = useLocation();
 
   const contextColumns = [
     ...coreBookDataGridColumns,
@@ -50,7 +51,7 @@ function RentBook({ api }) {
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
       <ResponsiveDrawer>
         <Typography variant="h6" mb={1}>
-          Borrowing
+          Renting to {location.state.name}
         </Typography>
         <DataDisplayGrid
           columns={contextColumns}

@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, MenuItem, Stack, TextField } from "@mui/material";
 import { fetchData, postData } from "./utils";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +19,7 @@ const BookForm = ({ action, apiEndpoint }) => {
   const [endpoint, setEndpoint] = React.useState(apiEndpoint);
   const [submitStatus, setSubmitStatus] = React.useState(false);
   const [requestFailed, setRequestFailed] = React.useState(false);
+  const location = useLocation();
 
   const navigation = useNavigate();
 
@@ -27,7 +28,7 @@ const BookForm = ({ action, apiEndpoint }) => {
 
   if (action.toLowerCase().includes("edit")) {
     submitMethod = "PUT";
-    formTitle = "Edit a Book";
+    formTitle = `Editing ${location.state.title} by ${location.state.author}`;
 
     React.useEffect(() => {
       fetchData(apiEndpoint)

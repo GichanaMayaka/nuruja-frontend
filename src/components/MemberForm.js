@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
 import { fetchData, postData } from "./utils";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,13 +16,14 @@ function MemberForm({ action, apiEndpoint }) {
   const [endpoint] = React.useState(apiEndpoint);
   const [requestFailed, setRequestFailed] = React.useState(false);
   const navigation = useNavigate();
+  const location = useLocation();
 
   let submitMethod;
   let formTitle;
 
   if (action.toLowerCase().includes("edit")) {
     submitMethod = "PUT";
-    formTitle = "Edit a Member";
+    formTitle = `Editing member ${location.state.name}`;
 
     React.useEffect(() => {
       fetchData(endpoint)

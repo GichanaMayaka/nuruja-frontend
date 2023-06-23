@@ -47,6 +47,11 @@ export async function fetchData(url, method = "GET") {
 
 export function EditIconButtonRenderer({ params }) {
   const navigation = useNavigate();
+  const state = params.row.title
+    ? { title: params.row.title, author: params.row.author }
+    : params.row.username
+    ? { name: params.row.username }
+    : null;
 
   return (
     <Tooltip title={"Edit"} arrow>
@@ -54,7 +59,9 @@ export function EditIconButtonRenderer({ params }) {
         color="primary"
         size="small"
         onClick={() => {
-          navigation(`${params.row.id}`);
+          navigation(`${params.row.id}`, {
+            state: state,
+          });
         }}
       >
         <EditIcon />
@@ -94,7 +101,9 @@ export function RentToIconButtonRenderer({ params }) {
         color="primary"
         size="small"
         onClick={() => {
-          navigation(`${params.row.id}/borrow`);
+          navigation(`${params.row.id}/borrow`, {
+            state: { name: params.row.username },
+          });
         }}
       >
         <BookmarkAdded />
@@ -191,14 +200,10 @@ export function AlertRenderer({
 
 export function ClearUserBalanceIconRenderer({ params, endpoint }) {
   const navigation = useNavigate();
-  const location = `${endpoint}balances/clear`;
+  const location = `${endpoint}balances/${params.row.user_id}/clear`;
 
   const handleClearUserBalance = () => {
-    const payload = {
-      user_id: params.row.user_id,
-    };
-
-    postData(location, payload, "POST")
+    fetchData(location, "GET")
       .then((r) => {
         alert("Balance Cleared");
         navigation(0);
