@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# Nuruja (frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> This is a simple Library Management System that allows one to add a book, add a member, lend a book to a member,
+> initiate
+> a book return, charge a rent fee, a late penalty fees, as well as manage members' balances.
+> Live demo [_hence_](https://nuruja.vercel.app)
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+* [Technologies Used](#technologies-used)
+    * [Front-End](#front-end)
+    * [Backend](#backend)
+* [Features](#features)
+* [Screenshots](#screenshots)
+    * [Books View](#books-view)
+    * [Edit Book View](#edit-book-view)
+    * [Members View](#members-view)
+    * [Edit Member View](#edit-member-view)
+    * [Rent a Book View](#rent-a-book-view)
+    * [Pending Returns View](#pending-returns-view)
+    * [Member Balances View](#member-balances-view)
+    * [Not Found View](#not-found-view)
+    * [Failed Connection View](#failed-connection-view)
+    * [Search View](#search-view)
+* [Setup](#setup)
+* [Project Status](#project-status)
+* [Room for Improvement](#room-for-improvement)
+* [Contact](#contact)
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Front-End
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+- [React](https://react.dev/), and [Material UI](https://mui.com/)
 
-### `npm test`
+### Backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Python](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+- [PostgreSQL](https://www.postgresql.org/)
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The following are the features of the web application:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- add, edit, and remove a Book
+- add, edit, and remove a Member
+- rent a Book to a Member charging a rent fee as well as a late penalty fee after two weeks
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Screenshots
 
-### `npm run eject`
+### Books View
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Books View](./docs/images/books-view.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Edit Book View
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Edit Book View](./docs/images/edit-book-view.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Members View
 
-## Learn More
+![Members View](./docs/images/members-view.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Edit Member View
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Edit Member View](./docs/images/edit-member-view.png)
 
-### Code Splitting
+### Rent a Book View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![Rent a Book View](./docs/images/rent-book-view.png)
 
-### Analyzing the Bundle Size
+### Pending Returns View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![Pending Returns View](./docs/images/pending-returns-view.png)
 
-### Making a Progressive Web App
+### Member Balances View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![Member Balances View](./docs/images/member-balances-view.png)
 
-### Advanced Configuration
+### Not Found View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Not Found View](./docs/images/not-found-view.png)
 
-### Deployment
+### Failed Connection View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![Failed Connection View](./docs/images/failed-connection-view.png)
 
-### `npm run build` fails to minify
+### Search View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Search View](./docs/images/search-view.png)
+
+## Setup
+
+To run the application locally, first follow the [steps](https://github.com/GichanaMayaka/nuruja/#readme) for setting up
+the backend. Once the backend is up and running, supply a _.env_ to the repository root with the configuration as below:
+
+```bash
+REACT_APP_API_ENDPOINT=[hostname:[port]]
+```
+
+To create the environment and run the development server:
+
+```bash
+npm install
+
+npm start
+```
+
+## Project Status
+
+Project is: _in progress_.
+
+## Room for Improvement
+
+The following are areas I intend to implement going forward
+
+- Add security, authentication and user roles.
+
+## Contact
+
+Created by [Gichana Mayaka](mailto://gichanamayaka@gmail.com) - feel free to contact me!
