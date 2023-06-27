@@ -24,7 +24,7 @@ function DataDisplayGrid({ data, columns, loadingStatus }) {
         loading={loadingStatus}
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 10, page: 0 },
+            paginationModel: { pageSize: 5, page: 0 },
           },
         }}
         pageSizeOptions={[5, 10, 25, 50, 100]}
