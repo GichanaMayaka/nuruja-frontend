@@ -1,9 +1,4 @@
-export const MenuItemsNuruja = [
-  "Books",
-  "Members",
-  "Returns",
-  "Balances",
-];
+export const MenuItemsNuruja = ["Books", "Members", "Returns", "Balances"];
 
 export const coreMembersDataGridColumns = [
   {
@@ -120,4 +115,8 @@ export const coreBalancesDataGridColumns = [
     type: "Date",
     flex: 1,
   },
+];
+export const rentStatusOptions = [
+  { value: "not-rented", label: "Not Rented" },
+  { value: "rented", label: "Rented" },
 ];

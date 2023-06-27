@@ -1,72 +1,51 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Button, MenuItem, Stack, TextField } from "@mui/material";
-import { fetchData, postData } from "./utils";
+import { Button, Stack, TextField } from "@mui/material";
+import { postData } from "./utils";
 import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { bookSchema } from "./validationSchemas";
+import FormTextInput from "./form-components/FormTextInput";
+import FormDateInput from "./form-components/FormDateInput";
+import FormDropDownInput from "./form-components/FormDropDownInput";
+import { rentStatusOptions } from "./scaffold";
+import useFetchValues from "./hooks/useFetchValues";
 
 const BookForm = ({ action, apiEndpoint }) => {
-  const [title, setTitle] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [dateOfPublication, setDateOfPublication] = React.useState("");
-  const [isbn, setIsbn] = React.useState(0);
-  const [rentFee, setRentFee] = React.useState(1000);
-  const [rentStatus, setRentStatus] = React.useState("not-rented");
-  const [latePenaltyFee, setLatePenaltyFee] = React.useState(250);
-  const [endpoint, setEndpoint] = React.useState(apiEndpoint);
-  const [submitStatus, setSubmitStatus] = React.useState(false);
-  const [requestFailed, setRequestFailed] = React.useState(false);
-  const location = useLocation();
+  const [endpoint] = React.useState(apiEndpoint);
+  const [submitMethod, data] = useFetchValues({ action, endpoint });
 
+  const location = useLocation();
   const navigation = useNavigate();
 
-  let submitMethod;
-  let formTitle;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    control,
+  } = useForm({ resolver: zodResolver(bookSchema), mode: "onChange" });
 
-  if (action.toLowerCase().includes("edit")) {
-    submitMethod = "PUT";
-    formTitle = `Editing ${location.state.title} by ${location.state.author}`;
-
-    React.useEffect(() => {
-      fetchData(apiEndpoint)
-        .then((response) => {
-          setRequestFailed(false);
-          setTitle(response.title);
-          setAuthor(response.author);
-          setIsbn(response.isbn);
-          setRentStatus(response.status);
-          setDateOfPublication(
-            new Date(response.date_of_publication).toISOString().slice(0, 10)
-          );
-          setRentFee(response.rent_fee);
-          setLatePenaltyFee(response.late_penalty_fee);
-        })
-        .catch((error) => {
-          setRequestFailed(true);
-        });
-    }, []);
-  } else {
-    submitMethod = "POST";
-    formTitle = "Add a Book";
-  }
+  React.useEffect(() => {
+    reset(data);
+  }, [reset, data]);
 
   function handleBookFormSubmit(formValues) {
     const payload = {
-      title: title,
-      author: author,
-      isbn: isbn,
-      date_of_publication: new Date(dateOfPublication).toISOString(),
-      status: rentStatus,
-      rent_fee: rentFee,
-      late_penalty_fee: latePenaltyFee,
+      title: formValues.title,
+      author: formValues.author,
+      isbn: formValues.isbn,
+      date_of_publication: new Date(formValues.dateOfPublication).toISOString(),
+      status: formValues.rentStatus,
+      rent_fee: formValues.rentFee,
+      late_penalty_fee: formValues.latePenaltyFee,
     };
 
     postData(endpoint, payload, submitMethod)
-      .then((r) => {
-        setSubmitStatus(true);
+      .then((response) => {
+        alert(`Book ${action}ed successfully`);
       })
       .catch((error) => {
         if (error.status === 404) {
@@ -77,12 +56,6 @@ const BookForm = ({ action, apiEndpoint }) => {
     navigation("/books");
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(bookSchema) });
-
   return (
     <Box
       component="form"
@@ -91,34 +64,24 @@ const BookForm = ({ action, apiEndpoint }) => {
       noValidate
     >
       <Typography variant="h6" mb={1}>
-        {formTitle}
+        {action.toLowerCase().includes("edit")
+          ? `Editing ${location.state.title} by ${location.state.author}`
+          : "Add a Book"}
       </Typography>
-      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
-        <TextField
-          type="text"
-          variant="outlined"
-          color="secondary"
-          label="Title"
-          fullWidth
-          value={title}
-          {...register("title", {
-            onChange: (e) => setTitle(e.target.value),
-          })}
-          error={!!errors.title}
-          helperText={errors.title?.message}
+      <Stack spacing={2} direction="row">
+        <FormTextInput
+          inputType={"text"}
+          name={"title"}
+          errors={errors.title}
+          control={control}
+          label={"Title"}
         />
-        <TextField
-          type="text"
-          variant="outlined"
-          color="secondary"
-          label="Author"
-          fullWidth
-          value={author}
-          {...register("author", {
-            onChange: (e) => setAuthor(e.target.value),
-          })}
-          error={!!errors.author}
-          helperText={errors.author?.message}
+        <FormTextInput
+          inputType={"text"}
+          name={"author"}
+          label={"Author"}
+          errors={errors.author}
+          control={control}
         />
         <TextField
           type="number"
@@ -127,85 +90,45 @@ const BookForm = ({ action, apiEndpoint }) => {
           label="ISBN"
           fullWidth
           sx={{ mb: 4 }}
-          value={isbn}
           {...register("isbn", {
             valueAsNumber: true,
-            onChange: (e) => setIsbn(e.target.value),
           })}
+          focused={action.toLowerCase().includes("edit")}
           error={!!errors.isbn}
           helperText={errors.isbn?.message}
         />
-        <TextField
-          select
-          fullWidth
-          variant="outlined"
-          color="secondary"
-          label="Rent Status"
-          defaultValue="not-rented"
-          sx={{ mb: 4 }}
-          {...register("rentStatus", {
-            onChange: (e) => setRentStatus(e.target.value),
-            required: "Rent Status is Required",
-          })}
-          error={!!errors.rentStatus}
-          helperText={errors.rentStatus?.message}
-        >
-          {[
-            { value: "not-rented", label: "Not Rented" },
-            { value: "rented", label: "Rented" },
-          ].map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <FormDropDownInput
+          name={"rentStatus"}
+          label={"Rent Status"}
+          dropDownOptions={rentStatusOptions}
+          defaultValue={"not-rented"}
+          errors={errors.rentStatus}
+          control={control}
+        />
       </Stack>
-      <TextField
-        type="date"
-        variant="outlined"
-        color="secondary"
-        label="Date of Publication"
-        fullWidth
-        focused
-        sx={{ mb: 4 }}
-        value={dateOfPublication}
-        {...register("dateOfPublication", {
-          valueAsDate: true,
-          onChange: (e) => setDateOfPublication(e.target.value),
-        })}
-        error={!!errors.dateOfPublication}
-        helperText={errors.dateOfPublication?.message}
+      <FormDateInput
+        label={"Date pf Publication"}
+        control={control}
+        errors={errors.dateOfPublication}
+        name={"dateOfPublication"}
+        rules={{ valueAsDate: true }}
       />
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
-        <TextField
-          type="number"
-          variant="outlined"
-          color="secondary"
-          label="Rent Fee"
-          fullWidth
-          sx={{ mb: 4 }}
-          value={rentFee}
-          {...register("rentFee", {
-            valueAsNumber: true,
-            onChange: (e) => setRentFee(e.target.value),
-          })}
-          error={!!errors.rentFee}
-          helperText={errors.rentFee?.message}
+        <FormTextInput
+          inputType="number"
+          name={"rentFee"}
+          errors={errors.rentFee}
+          label={"Rent Fee"}
+          control={control}
+          rules={{ valueAsNumber: true }}
         />
-        <TextField
-          type="number"
-          variant="outlined"
-          color="secondary"
-          label="Late Penalty Fee"
-          fullWidth
-          sx={{ mb: 4 }}
-          value={latePenaltyFee}
-          {...register("latePenaltyFee", {
-            valueAsNumber: true,
-            onChange: (e) => setLatePenaltyFee(e.target.value),
-          })}
-          error={!!errors.latePenaltyFee}
-          helperText={errors.latePenaltyFee?.message}
+        <FormTextInput
+          inputType="number"
+          name={"latePenaltyFee"}
+          label={"Late Penalty Fee"}
+          rules={{ valueAsNumber: true }}
+          errors={errors.latePenaltyFee}
+          control={control}
         />
       </Stack>
       <Button variant="outlined" color="secondary" type="submit">

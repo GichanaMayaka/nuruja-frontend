@@ -1,70 +1,47 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Stack, TextField } from "@mui/material";
-import { fetchData, postData } from "./utils";
+import { postData } from "./utils";
 import { useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { membersSchema } from "./validationSchemas";
+import FormTextInput from "./form-components/FormTextInput";
+import useFetchValues from "./hooks/useFetchValues";
 
 function MemberForm({ action, apiEndpoint }) {
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [address, setAddress] = React.useState("");
   const [endpoint] = React.useState(apiEndpoint);
-  const [requestFailed, setRequestFailed] = React.useState(false);
+  const [submitMethod, data] = useFetchValues({ action, endpoint });
+
   const navigation = useNavigate();
   const location = useLocation();
-
-  let submitMethod;
-  let formTitle;
-
-  if (action.toLowerCase().includes("edit")) {
-    submitMethod = "PUT";
-    formTitle = `Editing member ${location.state.name}`;
-
-    React.useEffect(() => {
-      fetchData(endpoint)
-        .then((r) => {
-          setUsername(r.username);
-          setEmail(r.email);
-          setPhoneNumber(r.phone_number);
-          setAddress(r.address);
-        })
-        .catch((error) => {
-          if (error.status === 404) {
-            navigation("/404");
-          } else {
-            setRequestFailed(true);
-          }
-        });
-    }, []);
-  } else {
-    submitMethod = "POST";
-    formTitle = "Add a Member";
-  }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    reset,
   } = useForm({
     resolver: zodResolver(membersSchema),
   });
 
+  React.useEffect(() => {
+    reset(data);
+  }, [reset, data]);
+
   function handleMemberFormSubmit(formValues) {
     const payload = {
-      username: username,
-      email: email,
-      phone_number: phoneNumber,
-      address: address,
+      username: formValues.username,
+      email: formValues.email,
+      phone_number: formValues.phoneNumber,
+      address: formValues.address,
     };
 
     postData(endpoint, payload, submitMethod)
       .then((r) => {
-        console.log(r.details);
+        alert(`Member ${action}ed successfully`);
       })
       .catch((error) => {
         if (error.status === 404) {
@@ -83,63 +60,45 @@ function MemberForm({ action, apiEndpoint }) {
       noValidate
     >
       <Typography variant="h6" mb={1}>
-        {formTitle}
+        {action.toLowerCase().includes("edit")
+          ? `Editing ${location.state.name}`
+          : "Add a Member"}
       </Typography>
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
-        <TextField
-          type="text"
-          variant="outlined"
-          color="secondary"
-          label="Name"
-          value={username}
-          fullWidth
-          {...register("username", {
-            onChange: (e) => setUsername(e.target.value),
-          })}
-          error={!!errors.username}
-          helperText={errors.username?.message}
+        <FormTextInput
+          name={"username"}
+          label={"Name"}
+          inputType={"text"}
+          errors={errors.username}
+          control={control}
         />
-        <TextField
-          type="text"
-          variant="outlined"
-          color="secondary"
-          label="Email"
-          value={email}
-          fullWidth
-          {...register("email", {
-            onChange: (e) => setEmail(e.target.value),
-          })}
-          error={!!errors.email}
-          helperText={errors.email?.message}
+        <FormTextInput
+          name={"email"}
+          label={"E-Mail"}
+          inputType={"text"}
+          errors={errors.email}
+          control={control}
         />
         <TextField
           type="number"
           variant="outlined"
           color="secondary"
           label="Phone Number"
-          value={phoneNumber}
           fullWidth
           sx={{ mb: 4 }}
           {...register("phoneNumber", {
             valueAsNumber: true,
-            onChange: (e) => setPhoneNumber(e.target.value),
           })}
+          focused={action.toLowerCase().includes("edit")}
           error={!!errors.phoneNumber}
           helperText={errors.phoneNumber?.message}
         />
-        <TextField
-          type="text"
-          variant="outlined"
-          color="secondary"
-          label="Address"
-          value={address}
-          fullWidth
-          sx={{ mb: 4 }}
-          {...register("address", {
-            onChange: (e) => setAddress(e.target.value),
-          })}
-          error={!!errors.address}
-          helperText={errors.address?.message}
+        <FormTextInput
+          name={"address"}
+          label={"Address"}
+          inputType={"text"}
+          errors={errors.address}
+          control={control}
         />
       </Stack>
       <Button variant="outlined" color="secondary" type="submit">
