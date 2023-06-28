@@ -3,7 +3,8 @@
 > This is a simple Library Management System that allows one to add a book, add a member, lend a book to a member,
 > initiate
 > a book return, charge a rent fee, a late penalty fees, as well as manage members' balances.
-> Live demo [_hence_](https://nuruja.vercel.app)
+> Live demo [_hence_](https://nuruja.vercel.app) (Please note that the website might be slow at the first request as it
+> requires the server to boot up initially).
 
 ## Table of Contents
 
