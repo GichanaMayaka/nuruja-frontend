@@ -1,6 +1,5 @@
 import React from "react";
 import BasePage from "../components/BasePage";
-import { Container } from "@mui/material";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreBookDataGridColumns } from "../components/scaffold";
@@ -48,18 +47,16 @@ function RentBook({ api }) {
   }, []);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <BasePage>
-        <Typography variant="h6" mb={1}>
-          Renting to {location.state.name}
-        </Typography>
-        <DataDisplayGrid
-          columns={contextColumns}
-          data={availableBooks}
-          loadingStatus={isLoading}
-        />
-      </BasePage>
-    </Container>
+    <BasePage>
+      <Typography variant="h6" mb={1}>
+        Renting to {location.state.name}
+      </Typography>
+      <DataDisplayGrid
+        columns={contextColumns}
+        data={availableBooks}
+        loadingStatus={isLoading}
+      />
+    </BasePage>
   );
 }
 
