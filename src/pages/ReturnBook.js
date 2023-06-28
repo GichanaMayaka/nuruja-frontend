@@ -1,6 +1,5 @@
 import React from "react";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
-import { Container } from "@mui/material";
+import BasePage from "../components/BasePage";
 import {
   AlertRenderer,
   fetchData,
@@ -75,24 +74,22 @@ function ReturnBook({ api }) {
   }, []);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        {requestFailed ? (
-          <AlertRenderer />
-        ) : (
-          <>
-            <Typography variant="h6" mb={1}>
-              Pending Returns
-            </Typography>
-            <DataDisplayGrid
-              data={rentedBooks}
-              columns={contextColumns}
-              loadingStatus={isLoading}
-            />
-          </>
-        )}
-      </ResponsiveDrawer>
-    </Container>
+    <BasePage>
+      {requestFailed ? (
+        <AlertRenderer />
+      ) : (
+        <>
+          <Typography variant="h6" mb={1}>
+            Pending Returns
+          </Typography>
+          <DataDisplayGrid
+            data={rentedBooks}
+            columns={contextColumns}
+            loadingStatus={isLoading}
+          />
+        </>
+      )}
+    </BasePage>
   );
 }
 

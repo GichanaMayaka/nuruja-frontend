@@ -1,6 +1,6 @@
-import { Button, Container } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import BasePage from "../components/BasePage";
 import { coreBookDataGridColumns } from "../components/scaffold";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import {
@@ -57,34 +57,32 @@ function Books({ api }) {
   }, []);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        {requestFailed ? (
-          <AlertRenderer />
-        ) : (
-          <div>
-            <Typography variant="h6" mb={1}>
-              Books
-            </Typography>
-            <DataDisplayGrid
-              data={books}
-              columns={booksContextColumns}
-              loadingStatus={isLoading}
-            />
-            <Button
-              variant="text"
-              color="secondary"
-              size="large"
-              onClick={() => {
-                navigation("new");
-              }}
-            >
-              Add a Book
-            </Button>{" "}
-          </div>
-        )}
-      </ResponsiveDrawer>
-    </Container>
+    <BasePage>
+      {requestFailed ? (
+        <AlertRenderer />
+      ) : (
+        <div>
+          <Typography variant="h6" mb={1}>
+            Books
+          </Typography>
+          <DataDisplayGrid
+            data={books}
+            columns={booksContextColumns}
+            loadingStatus={isLoading}
+          />
+          <Button
+            variant="text"
+            color="secondary"
+            size="large"
+            onClick={() => {
+              navigation("new");
+            }}
+          >
+            Add a Book
+          </Button>{" "}
+        </div>
+      )}
+    </BasePage>
   );
 }
 

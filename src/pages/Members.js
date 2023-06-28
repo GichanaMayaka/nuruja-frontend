@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, Container } from "@mui/material";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import { Button } from "@mui/material";
+import BasePage from "../components/BasePage";
 import DataDisplayGrid from "../components/DataDisplayGrid";
 import { coreMembersDataGridColumns } from "../components/scaffold";
 import {
@@ -66,39 +66,37 @@ function Members({ api }) {
   }, []);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        {requestFailed ? (
-          <AlertRenderer
-            message={"Connection Error"}
-            variant={"filled"}
-            severity={"warning"}
-            title={"Error"}
+    <BasePage>
+      {requestFailed ? (
+        <AlertRenderer
+          message={"Connection Error"}
+          variant={"filled"}
+          severity={"warning"}
+          title={"Error"}
+        />
+      ) : (
+        <div>
+          <Typography variant="h6" mb={1}>
+            Members
+          </Typography>
+          <DataDisplayGrid
+            data={members}
+            columns={membersContextColumns}
+            loadingStatus={isLoading}
           />
-        ) : (
-          <>
-            <Typography variant="h6" mb={1}>
-              Members
-            </Typography>
-            <DataDisplayGrid
-              data={members}
-              columns={membersContextColumns}
-              loadingStatus={isLoading}
-            />
-            <Button
-              variant="text"
-              color="secondary"
-              size="large"
-              onClick={() => {
-                navigation("new");
-              }}
-            >
-              Add a Member
-            </Button>
-          </>
-        )}
-      </ResponsiveDrawer>
-    </Container>
+          <Button
+            variant="text"
+            color="secondary"
+            size="large"
+            onClick={() => {
+              navigation("new");
+            }}
+          >
+            Add a Member
+          </Button>
+        </div>
+      )}
+    </BasePage>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import BasePage from "../components/BasePage";
 import { Container } from "@mui/material";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
@@ -49,7 +49,7 @@ function RentBook({ api }) {
 
   return (
     <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
+      <BasePage>
         <Typography variant="h6" mb={1}>
           Renting to {location.state.name}
         </Typography>
@@ -58,7 +58,7 @@ function RentBook({ api }) {
           data={availableBooks}
           loadingStatus={isLoading}
         />
-      </ResponsiveDrawer>
+      </BasePage>
     </Container>
   );
 }

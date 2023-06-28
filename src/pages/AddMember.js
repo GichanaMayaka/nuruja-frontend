@@ -1,6 +1,5 @@
 import React from "react";
-import { Container } from "@mui/material";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import BasePage from "../components/BasePage";
 import MemberForm from "../components/MemberForm";
 
 function AddMember({ api }) {
@@ -8,11 +7,9 @@ function AddMember({ api }) {
   const [path] = React.useState(`${api}members/new`);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        <MemberForm action={action} apiEndpoint={path} />
-      </ResponsiveDrawer>
-    </Container>
+    <BasePage>
+      <MemberForm action={action} apiEndpoint={path} />
+    </BasePage>
   );
 }
 

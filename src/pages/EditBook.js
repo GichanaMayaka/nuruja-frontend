@@ -1,8 +1,7 @@
-import { Container } from "@mui/material";
 import React from "react";
 import { useParams } from "react-router-dom";
 import BookForm from "../components/BookForm";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import BasePage from "../components/BasePage";
 
 function EditBook({ api }) {
   const action = "edit";
@@ -10,11 +9,9 @@ function EditBook({ api }) {
   const [path] = React.useState(`${api}books/${id}`);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        <BookForm action={action} apiEndpoint={path} />
-      </ResponsiveDrawer>
-    </Container>
+    <BasePage>
+      <BookForm action={action} apiEndpoint={path} />
+    </BasePage>
   );
 }
 

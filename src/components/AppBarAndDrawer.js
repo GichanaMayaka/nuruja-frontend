@@ -5,10 +5,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button } from "@mui/material";
+import { Button, CssBaseline } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
@@ -80,7 +79,6 @@ export const AppBarAndDrawer = (props) => {
   const drawer = (
     <div>
       <Toolbar />
-      <Divider />
       <List>
         {MenuItemsNuruja.map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -109,7 +107,6 @@ export const AppBarAndDrawer = (props) => {
           </ListItem>
         ))}
       </List>
-      <Divider />
     </div>
   );
 
@@ -118,12 +115,14 @@ export const AppBarAndDrawer = (props) => {
 
   return (
     <>
+      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${props.drawerWidth}px)` },
           ml: { sm: `${props.drawerWidth}px` },
         }}
+        enableColorOnDark
       >
         <Toolbar>
           <IconButton
@@ -180,16 +179,15 @@ export const AppBarAndDrawer = (props) => {
       <Box
         component="nav"
         sx={{ width: { sm: props.drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label="folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

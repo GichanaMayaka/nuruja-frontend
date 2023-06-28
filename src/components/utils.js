@@ -77,7 +77,10 @@ export function DeleteIconButtonRender({ params, endpoint }) {
 
   const handleDelete = () => {
     postData(api, {}, "DELETE")
-      .then((r) => navigation("/"))
+      .then((r) => {
+        alert("Delete Successful");
+        navigation("/");
+      })
       .catch((error) => {
         console.log(error.status);
       });

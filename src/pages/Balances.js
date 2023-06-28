@@ -1,14 +1,13 @@
-import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import DataDisplayGrid from "../components/DataDisplayGrid";
-import ResponsiveDrawer from "../components/ResponsiveDrawer";
+import BasePage from "../components/BasePage";
 import { coreBalancesDataGridColumns } from "../components/scaffold";
 import {
   AlertRenderer,
   ClearUserBalanceIconRenderer,
-  fetchData
+  fetchData,
 } from "../components/utils";
 
 function Balances({ api }) {
@@ -48,24 +47,22 @@ function Balances({ api }) {
   }, []);
 
   return (
-    <Container sx={{ alignContent: "center", marginTop: 3 }}>
-      <ResponsiveDrawer>
-        {!requestFailed ? (
-          <>
-            <Typography variant="h6" mb={1}>
-              Balances
-            </Typography>
-            <DataDisplayGrid
-              columns={contextColumns}
-              data={balances}
-              loadingStatus={isLoading}
-            />
-          </>
-        ) : (
-          <AlertRenderer />
-        )}
-      </ResponsiveDrawer>
-    </Container>
+    <BasePage>
+      {!requestFailed ? (
+        <>
+          <Typography variant="h6" mb={1}>
+            Balances
+          </Typography>
+          <DataDisplayGrid
+            columns={contextColumns}
+            data={balances}
+            loadingStatus={isLoading}
+          />
+        </>
+      ) : (
+        <AlertRenderer />
+      )}
+    </BasePage>
   );
 }
 
