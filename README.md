@@ -4,7 +4,8 @@
 > initiate
 > a book return, charge a rent fee, a late penalty fees, as well as manage members' balances.
 > Live demo [_hence_](https://nuruja.vercel.app) (Please note that the website might be slow at the first request as it
-> requires the server to boot up initially).
+> requires the server to boot up initially). The backend repository can be
+> found [_here_](https://github.com/GichanaMayaka/nuruja).
 
 ## Table of Contents
 
