@@ -23,6 +23,7 @@ import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuItemsNuruja } from "./scaffold";
 import { postData } from "./utils";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 export const AppBarAndDrawer = (props) => {
   const { window } = props;
@@ -97,6 +98,8 @@ export const AppBarAndDrawer = (props) => {
                     <PaymentsIcon />
                   ) : text.toLowerCase() === "returns" ? (
                     <LibraryAddCheckIcon />
+                  ) : text.toLowerCase() === "reports" ? (
+                    <DashboardIcon />
                   ) : (
                     <LibraryBooksIcon />
                   )}

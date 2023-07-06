@@ -1,4 +1,4 @@
-export const MenuItemsNuruja = ["Books", "Members", "Returns", "Balances"];
+export const MenuItemsNuruja = ["Books", "Members", "Returns", "Balances", "Reports"];
 
 export const coreMembersDataGridColumns = [
   {

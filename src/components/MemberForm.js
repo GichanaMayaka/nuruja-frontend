@@ -25,6 +25,7 @@ function MemberForm({ action, apiEndpoint }) {
     reset,
   } = useForm({
     resolver: zodResolver(membersSchema),
+    mode: "onChange",
   });
 
   React.useEffect(() => {

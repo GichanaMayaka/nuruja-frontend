@@ -13,6 +13,7 @@ import Members from "./pages/Members";
 import RentBook from "./pages/RentBook";
 import ReturnBook from "./pages/ReturnBook";
 import Searches from "./pages/Searches";
+import Analytics from "./pages/Analytics";
 
 const appTheme = createTheme({
   status: {
@@ -64,6 +65,8 @@ function App() {
           <Route path="/returns" element={<ReturnBook api={endpoint} />} />
 
           <Route path="/search" element={<Searches api={endpoint} />} />
+
+          <Route path="/reports" element={<Analytics api={endpoint} />} />
 
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
